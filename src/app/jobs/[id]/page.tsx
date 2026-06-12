@@ -32,7 +32,14 @@ import {
   Link as LinkIcon,
   Settings,
   Sprout,
-  HelpCircle
+  HelpCircle,
+  ListChecks,
+  Sparkles,
+  BadgeCheck,
+  Brain,
+  Award,
+  School,
+  FileText
 } from "lucide-react";
 
 export const dynamicParams = false;
@@ -47,11 +54,44 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   return { title: job ? `${job.name} — 진로나침반` : "진로나침반" };
 }
 
-/** 기본정보/핵심지표 테이블은 상단 카드로 대체하므로 '하는 일'부터 렌더링 */
-function bodyFrom(content: string): string {
+/** 직업백과 본문을 `## 섹션` 단위로 분리 (기본정보/핵심지표 테이블은 상단 카드로 대체하므로 '하는 일'부터) */
+function splitSections(content: string): { title: string; body: string }[] {
   const idx = content.indexOf("## 하는 일");
-  return idx >= 0 ? content.slice(idx) : content;
+  const sliced = idx >= 0 ? content.slice(idx) : content;
+  return sliced
+    .split(/\n(?=## )/)
+    .map((block) => {
+      const m = block.match(/^## (.+)\n?/);
+      return m ? { title: m[1].trim(), body: block.slice(m[0].length).trim() } : null;
+    })
+    .filter((s): s is { title: string; body: string } => s !== null && s.body.length > 0);
 }
+
+/** 짧은 항목만 나열된 리스트 섹션이면 칩 데이터로 변환 (문장형 항목은 notes로 분리) */
+function parseChipSection(body: string): { chips: string[]; notes: string[] } | null {
+  const lines = body.split("\n").map((l) => l.trim()).filter(Boolean);
+  if (lines.length < 2 || !lines.every((l) => l.startsWith("- "))) return null;
+  const items = lines.map((l) => l.slice(2).trim());
+  const chips = items.filter((t) => t.length <= 22);
+  if (chips.length < 3) return null;
+  return { chips, notes: items.filter((t) => t.length > 22) };
+}
+
+/** 본문 섹션 제목별 아이콘 (미정의 제목은 FileText) */
+const SECTION_ICONS: Record<string, React.ComponentType<{ className?: string; strokeWidth?: number }>> = {
+  "하는 일": Briefcase,
+  "수행 업무": ListChecks,
+  "적성 및 흥미": Sparkles,
+  "필요 능력": BadgeCheck,
+  "필요 지식": Brain,
+  "교육 및 훈련": GraduationCap,
+  "관련 자격증": Award,
+  "관련 연구기관": School,
+  "근무 환경": Building2,
+  "직업 전망": TrendingUp,
+  "연봉 정보": Coins,
+  "직업만족도": Star,
+};
 
 const INDICATOR_CARDS = [
   { key: "salaryLevel", label: "평균연봉", icon: Coins },
@@ -248,12 +288,43 @@ export default async function JobDetailPage({
           </Link>
         </section>
 
-        {/* 직업백과 본문 */}
-        {content && (
-          <section className="job-content mt-6 rounded-xl border border-line bg-white p-6 shadow-sm sm:p-8">
-            <ReactMarkdown remarkPlugins={[remarkGfm, remarkCjkFriendly]}>{bodyFrom(content)}</ReactMarkdown>
-          </section>
-        )}
+        {/* 직업백과 본문 — 섹션별 카드 */}
+        {content &&
+          splitSections(content).map((s) => {
+            const SectionIcon = SECTION_ICONS[s.title] ?? FileText;
+            const chipData = parseChipSection(s.body);
+            return (
+              <section key={s.title} className="mt-6 rounded-xl border border-line bg-white p-6 shadow-sm sm:p-7">
+                <h2 className="flex items-center gap-2 text-lg font-bold text-ink">
+                  <SectionIcon className="h-5 w-5 text-primary-600" strokeWidth={2} />
+                  {s.title}
+                </h2>
+                {chipData ? (
+                  <>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {chipData.chips.map((c) => (
+                        <span
+                          key={c}
+                          className="inline-flex items-center rounded-full border border-line bg-surface-50 px-3 py-1 text-xs font-semibold text-ink-soft"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                    {chipData.notes.map((n) => (
+                      <p key={n} className="mt-3.5 text-sm leading-relaxed text-ink-soft">
+                        {n}
+                      </p>
+                    ))}
+                  </>
+                ) : (
+                  <div className="job-content mt-1">
+                    <ReactMarkdown remarkPlugins={[remarkGfm, remarkCjkFriendly]}>{s.body}</ReactMarkdown>
+                  </div>
+                )}
+              </section>
+            );
+          })}
 
         {/* 관련 직업 */}
         {job.relatedJobs.length > 0 && (

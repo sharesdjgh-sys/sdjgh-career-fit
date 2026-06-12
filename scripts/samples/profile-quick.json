@@ -1,0 +1,14 @@
+{
+  "profile": {
+    "source": "quick",
+    "holland": { "primary": "I", "secondary": "R" },
+    "aptitudes": ["수리력", "추리력", "문제해결력"],
+    "values": ["발전", "보수"],
+    "interestCategories": ["01_IT_디지털기술"],
+    "favoriteSubjects": ["수학", "과학"],
+    "grade": 2,
+    "track": "이과",
+    "confidence": "medium"
+  },
+  "skipAi": true
+}

@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #dbeafe;
+  --color-secondary: #10b981;
+  --color-secondary-light: #d1fae5;
+  --color-accent: #f59e0b;
+  --color-accent-light: #fef3c7;
+  --color-surface: #f8fafc;
+  --color-ink: #1e293b;
+  --color-ink-soft: #64748b;
+  --radius-card: 12px;
+  --radius-btn: 8px;
+  --font-sans: var(--font-noto), "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  word-break: keep-all;
+}
+
+/* 직업백과 본문 마크다운 스타일 */
+.job-content h2 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.job-content h2:first-child {
+  margin-top: 0;
+}
+.job-content h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-top: 1.25rem;
+  color: var(--color-primary-dark);
+}
+.job-content p {
+  margin-top: 0.6rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #334155;
+}
+.job-content ul {
+  margin-top: 0.6rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.job-content li {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #334155;
+}
+.job-content strong {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.job-content table {
+  margin-top: 0.75rem;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.job-content th,
+.job-content td {
+  border: 1px solid #e2e8f0;
+  padding: 0.45rem 0.7rem;
+  text-align: left;
+}
+.job-content th {
+  background: var(--color-surface);
+  font-weight: 600;
+}
+.job-content hr {
+  margin: 1.5rem 0;
+  border-color: #e2e8f0;
+}
+
+/* 인쇄(보고서) 스타일 */
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  body {
+    background: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-hidden {
+    display: none !important;
+  }
+  .print-break-avoid {
+    break-inside: avoid;
+  }
+}

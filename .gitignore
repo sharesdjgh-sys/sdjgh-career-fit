@@ -1,8 +1,25 @@
-# Generated / data files
+# Source data (원본 직업백과 — 대용량, data/로 가공해 사용)
 jobs/
-build_jobs_json.py
-jobs.json
+/jobs.json
 
 # Documents / planning files
-Claude_Design_프롬프트.md
 진로상담_AI서비스_기획서.docx
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Env / secrets
+.env*.local
+.env
+
+# Vercel
+.vercel/
+
+# Misc
+*.tsbuildinfo
+.DS_Store

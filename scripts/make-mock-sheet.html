@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<!--
+  Vision 테스트용 모의 커리어넷 검사 결과지.
+  브라우저로 열고 스크린샷을 찍어 /input/photo 에 업로드하면
+  /api/analyze 의 추출 정확도를 검증할 수 있다.
+  기대 결과: 주유형 I(72), 부유형 R(65) / 적성 상위: 추리력·수리력·문제해결력 / 가치관 1~3위: 발전·안정성·보수
+-->
+<head>
+  <meta charset="UTF-8" />
+  <title>진로심리검사 결과표 (테스트용)</title>
+  <style>
+    body { font-family: "Malgun Gothic", sans-serif; max-width: 720px; margin: 24px auto; color: #222; }
+    h1 { font-size: 20px; border-bottom: 3px solid #2563eb; padding-bottom: 8px; }
+    h2 { font-size: 15px; margin-top: 28px; background: #eef4ff; padding: 6px 10px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { border: 1px solid #bbb; padding: 6px 8px; text-align: center; }
+    th { background: #f5f7fa; }
+    .bar { background: #2563eb; height: 12px; }
+    .meta { font-size: 12px; color: #666; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <h1>진로심리검사 결과표</h1>
+  <p class="meta">검사일: 2026.05.12 | ○○고등학교 2학년 | 커리어넷 직업흥미검사(H) · 직업적성검사 · 직업가치관검사</p>
+
+  <h2>1. 직업흥미검사 (Holland) 결과</h2>
+  <table>
+    <tr><th>유형</th><th>R (현실형)</th><th>I (탐구형)</th><th>A (예술형)</th><th>S (사회형)</th><th>E (기업형)</th><th>C (관습형)</th></tr>
+    <tr><th>표준점수</th><td>65</td><td><b>72</b></td><td>41</td><td>48</td><td>39</td><td>55</td></tr>
+  </table>
+  <p>흥미유형 코드: <b>IR</b> (탐구형-현실형) — 과학적 탐구와 실제적인 활동을 함께 선호합니다.</p>
+
+  <h2>2. 직업적성검사 결과 (백분위)</h2>
+  <table>
+    <tr><th>요인</th><th>백분위</th></tr>
+    <tr><td>추리력</td><td><b>88</b></td></tr>
+    <tr><td>수리력</td><td><b>85</b></td></tr>
+    <tr><td>문제해결력</td><td><b>82</b></td></tr>
+    <tr><td>공간지각력</td><td>71</td></tr>
+    <tr><td>언어력</td><td>64</td></tr>
+    <tr><td>집중력</td><td>61</td></tr>
+    <tr><td>기계능력</td><td>58</td></tr>
+    <tr><td>사무지각력</td><td>49</td></tr>
+    <tr><td>협응능력</td><td>45</td></tr>
+    <tr><td>색채지각력</td><td>33</td></tr>
+  </table>
+
+  <h2>3. 직업가치관검사 결과 (우선순위)</h2>
+  <table>
+    <tr><th>순위</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+    <tr><th>가치</th><td><b>발전</b></td><td><b>안정성</b></td><td><b>보수</b></td><td>성취</td><td>자율성</td></tr>
+  </table>
+
+  <p class="meta">※ 본 결과표는 개발 테스트용 모의 데이터입니다.</p>
+</body>
+</html>

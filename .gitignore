@@ -1,5 +1,6 @@
 # Source data (원본 직업백과 — 대용량, data/로 가공해 사용)
-jobs/
+# 주의: 슬래시 없는 jobs/ 는 src/app/jobs/ 까지 무시해 Tailwind 소스 스캔에서 제외됨
+/jobs/
 /jobs.json
 
 # Documents / planning files

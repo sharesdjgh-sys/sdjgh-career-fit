@@ -3,15 +3,14 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
+import Markdown from "@/components/Markdown";
 import { store } from "@/lib/storage";
 import { HOLLAND_INFO } from "@/lib/types";
 import type { ChatMessage, Recommendation, StudentProfile, HollandCode } from "@/lib/types";
 import {
   Compass,
   Send,
-  MessageSquare,
   ChevronLeft,
-  AlertTriangle,
   User,
   Sparkles,
   HelpCircle,
@@ -155,86 +154,88 @@ function ChatInner() {
   };
 
   return (
-    <div className="mx-auto flex h-[calc(100vh-4rem)] max-w-6xl w-full bg-surface">
+    <div className="mx-auto flex h-[calc(100vh-4rem)] w-full max-w-6xl bg-surface">
       {/* 사이드 패널 (데스크톱) */}
-      <aside className="hidden w-80 shrink-0 flex-col gap-5 overflow-y-auto border-r border-pink-100/30 bg-white p-5 lg:flex">
+      <aside className="hidden w-80 shrink-0 flex-col gap-5 overflow-y-auto border-r border-line bg-white p-5 lg:flex">
         {profile ? (
-          <div className="double-bezel">
-            <div className="double-bezel-inner p-5 shadow-sm">
-              <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-3">
-                <User className="h-4 w-4" />
-                나의 진로 프로필
-              </h2>
-              <div className="space-y-3.5">
-                <div className="flex flex-wrap gap-1">
-                  {(() => {
-                    const PIcon = HOLLAND_ICONS[profile.holland.primary] || HelpCircle;
-                    const SIcon = profile.holland.secondary ? HOLLAND_ICONS[profile.holland.secondary] : null;
-                    return (
-                      <>
-                        <span className="inline-flex items-center gap-1 text-xs font-bold text-pink-600 bg-pink-50 border border-pink-100/60 rounded-full px-2.5 py-0.5">
-                          <PIcon className="h-3 w-3" />
-                          {HOLLAND_INFO[profile.holland.primary].label}
+          <div className="rounded-xl border border-line bg-white p-5 shadow-sm">
+            <h2 className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-ink-soft">
+              <User className="h-3.5 w-3.5" />
+              나의 진로 프로필
+            </h2>
+            <div className="space-y-3.5">
+              <div className="flex flex-wrap gap-1.5">
+                {(() => {
+                  const PIcon = HOLLAND_ICONS[profile.holland.primary] || HelpCircle;
+                  const SIcon = profile.holland.secondary ? HOLLAND_ICONS[profile.holland.secondary] : null;
+                  return (
+                    <>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-100 px-3 py-1 text-xs font-bold text-primary-700">
+                        <PIcon className="h-3.5 w-3.5" />
+                        {HOLLAND_INFO[profile.holland.primary].label}
+                      </span>
+                      {profile.holland.secondary && SIcon && (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary-100 px-3 py-1 text-xs font-bold text-secondary-700">
+                          <SIcon className="h-3.5 w-3.5" />
+                          {HOLLAND_INFO[profile.holland.secondary].label}
                         </span>
-                        {profile.holland.secondary && SIcon && (
-                          <span className="inline-flex items-center gap-1 text-xs font-bold text-violet-600 bg-violet-50 border border-violet-100/60 rounded-full px-2.5 py-0.5">
-                            <SIcon className="h-3 w-3" />
-                            {HOLLAND_INFO[profile.holland.secondary].label}
-                          </span>
-                        )}
-                      </>
-                    );
-                  })()}
-                </div>
-                <p className="text-xs font-semibold text-slate-500 leading-normal">
-                  고등학교 {profile.grade}학년 · {profile.track}
-                  {profile.mbti && ` · MBTI: ${profile.mbti}`}
-                </p>
-
-                {recs.length > 0 && (
-                  <div className="border-t border-slate-100 pt-3.5">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">추천 직업 Top 3</div>
-                    <ul className="space-y-1.5">
-                      {recs.slice(0, 3).map((r) => {
-                        const CatIcon = CATEGORY_ICONS[r.categoryName] || Laptop;
-                        return (
-                          <li key={r.jobId}>
-                            <Link
-                              href={`/chat?job=${r.jobId}`}
-                              className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition duration-150 ${
-                                jobId === r.jobId
-                                  ? "bg-pink-50 border border-pink-100/50 text-pink-700"
-                                  : "bg-slate-50/50 border border-transparent text-slate-600 hover:bg-slate-50 hover:text-slate-800"
-                              }`}
-                            >
-                              <span className="flex items-center gap-1.5 truncate">
-                                <CatIcon className="h-3.5 w-3.5 shrink-0 text-slate-400" />
-                                <span className="truncate">{r.name}</span>
-                              </span>
-                              <span className="text-[10px] font-bold opacity-80 shrink-0">{r.matching}%</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                )}
+                      )}
+                    </>
+                  );
+                })()}
               </div>
+              <p className="text-xs font-medium leading-normal text-ink-lighter">
+                고등학교 {profile.grade}학년 · {profile.track}
+                {profile.mbti && ` · MBTI: ${profile.mbti}`}
+              </p>
+
+              {recs.length > 0 && (
+                <div className="border-t border-line pt-3.5">
+                  <div className="mb-2 text-xs font-semibold text-ink-soft">추천 직업 Top 3</div>
+                  <ul className="space-y-1.5">
+                    {recs.slice(0, 3).map((r) => {
+                      const CatIcon = CATEGORY_ICONS[r.categoryName] || Laptop;
+                      return (
+                        <li key={r.jobId}>
+                          <Link
+                            href={`/chat?job=${r.jobId}`}
+                            className={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold transition duration-200 ${
+                              jobId === r.jobId
+                                ? "bg-primary-50 text-primary-700"
+                                : "text-ink-soft hover:bg-surface-50 hover:text-ink"
+                            }`}
+                          >
+                            <span className="flex items-center gap-1.5 truncate">
+                              <CatIcon
+                                className={`h-3.5 w-3.5 shrink-0 ${
+                                  jobId === r.jobId ? "text-primary-600" : "text-ink-lighter"
+                                }`}
+                              />
+                              <span className="truncate">{r.name}</span>
+                            </span>
+                            <span className="shrink-0 text-xs font-bold text-ink-lighter">{r.matching}%</span>
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         ) : (
-          <div className="rounded-2xl border border-slate-100 bg-slate-50/50 p-5 text-xs font-medium leading-relaxed text-slate-400">
+          <div className="rounded-xl border border-line bg-surface-50 p-5 text-xs font-medium leading-relaxed text-ink-soft">
             아직 프로필이 없습니다.{" "}
-            <Link href="/" className="font-bold text-pink-500 hover:underline">
+            <Link href="/" className="font-bold text-primary-600 transition hover:text-primary-700">
               진로 설정을 먼저 진행
             </Link>
             하시면 맞춤화된 AI 상담을 받으실 수 있습니다.
           </div>
         )}
 
-        <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
-          <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5 mb-3">
-            <Sparkles className="h-4 w-4 text-indigo-500" />
+        <div className="rounded-xl border border-line bg-white p-5 shadow-sm">
+          <h2 className="mb-3 flex items-center gap-1.5 text-xs font-semibold text-ink-soft">
+            <Sparkles className="h-3.5 w-3.5 text-primary-600" />
             자주 묻는 질문
           </h2>
           <div className="flex flex-col gap-2">
@@ -243,7 +244,7 @@ function ChatInner() {
                 key={q}
                 type="button"
                 onClick={() => setInput(q)}
-                className="rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-left text-xs font-bold text-slate-600 transition duration-150 hover:border-pink-300 hover:text-pink-600 hover:scale-[1.01] active:scale-[0.99]"
+                className="rounded-full border border-line bg-white px-3.5 py-2 text-left text-xs font-semibold text-ink-soft transition duration-200 hover:border-primary-300 hover:bg-primary-50 hover:text-primary-600"
               >
                 {q}
               </button>
@@ -254,80 +255,91 @@ function ChatInner() {
 
       {/* 채팅 영역 */}
       <div className="flex min-w-0 flex-1 flex-col bg-surface">
-        <div className="flex items-center justify-between border-b border-pink-100/20 bg-white px-6 py-4 shadow-sm shadow-pink-100/10">
-          <div className="flex items-center gap-2 text-sm font-extrabold text-slate-900">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            </span>
+        <div className="flex items-center justify-between border-b border-line bg-white px-6 py-4">
+          <div className="flex items-center gap-2 text-sm font-bold text-ink">
+            <span className="h-2 w-2 rounded-full bg-success" />
             진로 탐색 AI 상담
             {currentJob && (
-              <span className="ml-2 rounded-full bg-pink-50 border border-pink-100 px-2.5 py-0.5 text-xs font-bold text-pink-600">
+              <span className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-primary-100 px-3 py-1 text-xs font-bold text-primary-700">
                 {currentJob.name} 컨텍스트
               </span>
             )}
           </div>
-          <Link href="/results" className="inline-flex items-center gap-0.5 text-xs font-bold text-slate-400 hover:text-pink-500 transition">
+          <Link
+            href="/results"
+            className="inline-flex items-center gap-0.5 text-xs font-semibold text-ink-lighter transition duration-200 hover:text-primary-600"
+          >
             <ChevronLeft className="h-3.5 w-3.5" />
             결과로 돌아가기
           </Link>
         </div>
 
-        <div className="flex-1 space-y-4 overflow-y-auto p-6">
-          {messages.map((m, i) => (
-            <div
-              key={i}
-              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              {m.role === "assistant" && (
-                <div className="mr-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-pink-500 text-white shadow-sm shadow-pink-500/10">
-                  <Compass className="h-4.5 w-4.5" />
-                </div>
-              )}
+        <div className="flex-1 overflow-y-auto p-6">
+          <div className="mx-auto max-w-3xl space-y-4">
+            {messages.map((m, i) => (
               <div
-                className={`max-w-[78%] whitespace-pre-wrap rounded-2xl px-5 py-3.5 text-sm leading-relaxed ${
-                  m.role === "user"
-                    ? "bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-tr-none shadow-md shadow-pink-500/10 font-medium"
-                    : "border border-pink-100/40 bg-white text-slate-800 rounded-tl-none shadow-sm font-medium"
-                }`}
+                key={i}
+                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
-                {m.content ||
-                  (streaming && i === messages.length - 1 ? (
-                    <span className="inline-flex gap-1.5 py-1">
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-slate-300" />
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-slate-300 [animation-delay:120ms]" />
-                      <span className="h-2 w-2 animate-bounce rounded-full bg-slate-300 [animation-delay:240ms]" />
-                    </span>
-                  ) : (
-                    ""
-                  ))}
+                {m.role === "assistant" && (
+                  <div className="mr-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600">
+                    <Compass className="h-4 w-4" strokeWidth={2} />
+                  </div>
+                )}
+                <div
+                  className={`max-w-[78%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                    m.role === "user"
+                      ? "whitespace-pre-wrap bg-primary-500 text-white"
+                      : "border border-line bg-white text-ink shadow-xs"
+                  }`}
+                >
+                  {m.content ? (
+                    m.role === "assistant" ? (
+                      <Markdown>{m.content}</Markdown>
+                    ) : (
+                      m.content
+                    )
+                  ) :
+                    (streaming && i === messages.length - 1 ? (
+                      <span className="inline-flex gap-1.5 py-1">
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-ink-lighter" />
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-ink-lighter [animation-delay:200ms]" />
+                        <span className="h-2 w-2 animate-pulse rounded-full bg-ink-lighter [animation-delay:400ms]" />
+                      </span>
+                    ) : (
+                      ""
+                    ))}
+                </div>
               </div>
-            </div>
-          ))}
-          <div ref={bottomRef} />
+            ))}
+            <div ref={bottomRef} />
+          </div>
         </div>
 
         <form
-          className="flex gap-2 border-t border-pink-100/20 bg-white p-4"
+          className="border-t border-line bg-white p-4"
           onSubmit={(e) => {
             e.preventDefault();
             void send(input);
           }}
         >
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="궁금한 직업이나 학습 방법에 대해 자유롭게 물어보세요..."
-            maxLength={4000}
-            className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-5 py-3 text-sm font-medium text-slate-700 transition focus:border-pink-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-pink-50/50"
-          />
-          <button
-            type="submit"
-            disabled={streaming || !input.trim()}
-            className="rounded-full bg-pink-500 px-5 py-3 text-sm font-bold text-white shadow-md shadow-pink-500/15 transition duration-150 hover:bg-pink-600 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 flex items-center justify-center"
-          >
-            <Send className="h-4 w-4" />
-          </button>
+          <div className="mx-auto flex w-full max-w-3xl gap-2">
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="궁금한 직업이나 학습 방법에 대해 자유롭게 물어보세요..."
+              maxLength={4000}
+              className="w-full flex-1 rounded-lg border border-line-strong bg-white px-4 py-3 text-sm text-ink placeholder:text-ink-lighter shadow-xs transition duration-200 focus:border-primary-500 focus:outline-none focus:ring-[3px] focus:ring-primary-500/15"
+            />
+            <button
+              type="submit"
+              disabled={streaming || !input.trim()}
+              aria-label="질문 보내기"
+              className="inline-flex items-center justify-center rounded-full bg-primary-500 px-5 py-3 text-sm font-bold text-white shadow-md shadow-primary-500/15 transition duration-200 hover:bg-primary-600 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
+            >
+              <Send className="h-4 w-4" />
+            </button>
+          </div>
         </form>
       </div>
     </div>

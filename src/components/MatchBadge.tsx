@@ -16,8 +16,8 @@ export default function MatchBadge({ jobId }: { jobId: string }) {
   if (matching === null) return null;
 
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold backdrop-blur border border-white/5">
-      <Target className="h-3.5 w-3.5 text-pink-300" />
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1 text-xs font-bold text-primary-600 shadow-sm">
+      <Target className="h-3.5 w-3.5" />
       나와의 매칭도 {matching}%
     </span>
   );

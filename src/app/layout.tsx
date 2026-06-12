@@ -16,30 +16,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-surface text-ink font-sans selection:bg-pink-100 selection:text-pink-900">
-        <header className="print-hidden sticky top-0 z-40 border-b border-pink-100/50 bg-white/70 backdrop-blur-md">
+      <body className="min-h-full flex flex-col bg-surface text-ink font-sans selection:bg-primary-100 selection:text-primary-900">
+        <header className="print-hidden sticky top-0 z-40 border-b border-line bg-white/85 backdrop-blur-sm">
           <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-            <Link href="/" className="flex items-center gap-2.5 transition hover:opacity-80">
-              <Compass className="h-5.5 w-5.5 text-pink-500" strokeWidth={2.2} />
-              <span className="text-lg font-extrabold tracking-tight bg-gradient-to-r from-pink-500 to-violet-600 bg-clip-text text-transparent">
-                진로나침반
-              </span>
+            <Link href="/" className="flex items-center gap-2 transition hover:opacity-80">
+              <Compass className="h-5 w-5 text-primary-500" strokeWidth={2.2} />
+              <span className="text-lg font-extrabold tracking-tight text-ink">진로나침반</span>
             </Link>
-            <nav className="flex items-center gap-6 text-sm font-bold text-slate-500">
-              <Link href="/results" className="transition hover:text-pink-500">
+            <nav className="flex items-center gap-6 text-sm font-semibold text-ink-soft">
+              <Link href="/results" className="transition hover:text-primary-600">
                 추천 결과
               </Link>
-              <Link href="/chat" className="transition hover:text-pink-500">
+              <Link href="/chat" className="transition hover:text-primary-600">
                 AI 상담
               </Link>
-              <Link href="/report" className="transition hover:text-pink-500">
+              <Link href="/report" className="transition hover:text-primary-600">
                 보고서
               </Link>
             </nav>
           </div>
         </header>
         <main className="flex-1">{children}</main>
-        <footer className="print-hidden border-t border-pink-100/30 bg-white py-8 text-center text-xs font-semibold text-slate-400">
+        <footer className="print-hidden border-t border-line bg-white py-8 text-center text-xs font-medium text-ink-lighter">
           진로나침반 · 직업백과 579개 직업 데이터 기반 AI 진로 탐색 · 개발4팀
         </footer>
       </body>

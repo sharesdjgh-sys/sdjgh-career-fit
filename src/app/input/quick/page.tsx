@@ -26,12 +26,14 @@ import {
   Utensils,
   Microscope,
   Dumbbell,
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
   Search,
   Sparkles,
   HelpCircle,
-  ChevronLeft
+  ChevronLeft,
+  Loader2,
 } from "lucide-react";
 
 const TOTAL_STEPS = 6;
@@ -143,252 +145,256 @@ export default function QuickInputPage() {
   };
 
   const chip = (selected: boolean) =>
-    `rounded-full border px-5 py-2.5 text-sm font-semibold tracking-tight transition duration-200 hover:scale-[1.02] active:scale-[0.98] ${
-      selected
-        ? "border-pink-500 bg-pink-500 text-white shadow-md shadow-pink-500/10"
-        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-    }`;
+    selected
+      ? "rounded-full bg-primary-500 px-4 py-2 text-xs font-bold text-white shadow-md shadow-primary-500/15 transition duration-200"
+      : "rounded-full border border-line bg-white px-4 py-2 text-xs font-bold text-ink-soft transition duration-200 hover:border-primary-300 hover:text-primary-600";
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-12">
-      <Link href="/" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-pink-500 transition mb-6">
+      <Link
+        href="/"
+        className="mb-6 inline-flex items-center gap-1 rounded-full text-sm font-semibold text-ink-soft transition duration-200 hover:text-primary-600"
+      >
         <ChevronLeft className="h-4 w-4" />
         메인으로 돌아가기
       </Link>
 
       {/* 진행 바 */}
-      <div className="mb-3 flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider">
-        <span>간편 진로 설정</span>
-        <span>
+      <div className="mb-3 flex items-center justify-between">
+        <span className="text-xs font-bold tracking-wide text-primary-600">간편 진로 설정</span>
+        <span className="text-xs font-medium text-ink-lighter">
           단계 {step + 1} / {TOTAL_STEPS}
         </span>
       </div>
-      <div className="mb-8 h-2.5 overflow-hidden rounded-full bg-slate-200/60 p-0.5">
+      <div className="mb-8 h-1.5 overflow-hidden rounded-full bg-surface-100">
         <div
-          className="h-full rounded-full bg-gradient-to-r from-pink-500 to-rose-400 transition-all duration-300"
+          className="h-full rounded-full bg-primary-500 transition-all duration-300"
           style={{ width: `${((step + 1) / TOTAL_STEPS) * 100}%` }}
         />
       </div>
 
-      <div className="double-bezel">
-        <div className="double-bezel-inner p-6 shadow-sm sm:p-8">
-          {step === 0 && (
-            <section>
-              <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-pink-500" />
-                어떤 분야에 관심이 있나요?
-              </h1>
-              <p className="mt-1.5 text-sm text-slate-400">자신의 관심 분야를 골라주세요 (최대 4개)</p>
-              <div className="mt-6 flex flex-wrap gap-2.5">
-                {INTEREST_OPTIONS.map((o) => {
-                  const IconComponent = INTEREST_ICONS[o.label] || HelpCircle;
-                  const selected = interestLabels.includes(o.label);
-                  return (
-                    <button
-                      key={o.label}
-                      type="button"
-                      className={`flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-semibold tracking-tight transition duration-200 hover:scale-[1.02] active:scale-[0.98] ${
-                        selected
-                          ? "border-pink-500 bg-pink-500 text-white shadow-md shadow-pink-500/10"
-                          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
-                      }`}
-                      onClick={() => toggle(interestLabels, o.label, 4, setInterestLabels)}
-                    >
-                      <IconComponent className={`h-4.5 w-4.5 ${selected ? "text-white" : "text-slate-500"}`} />
-                      {o.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {step === 1 && (
-            <section>
-              <h1 className="text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                <BookOpen className="h-5 w-5 text-pink-500" />
-                좋아하거나 자신 있는 과목은?
-              </h1>
-              <p className="mt-1.5 text-sm text-slate-400">다양하게 선택할 수 있습니다</p>
-              <div className="mt-6 flex flex-wrap gap-2.5">
-                {SUBJECT_OPTIONS.map((s) => (
+      <div className="rounded-xl border border-line bg-white p-6 shadow-sm sm:p-8">
+        {step === 0 && (
+          <section>
+            <h1 className="flex items-center gap-2 text-xl font-bold text-ink">
+              <Sparkles className="h-5 w-5 text-primary-500" strokeWidth={2} />
+              어떤 분야에 관심이 있나요?
+            </h1>
+            <p className="mt-2 text-sm text-ink-lighter">자신의 관심 분야를 골라주세요 (최대 4개)</p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {INTEREST_OPTIONS.map((o) => {
+                const IconComponent = INTEREST_ICONS[o.label] || HelpCircle;
+                const selected = interestLabels.includes(o.label);
+                return (
                   <button
-                    key={s}
+                    key={o.label}
                     type="button"
-                    className={chip(subjects.includes(s))}
-                    onClick={() => toggle(subjects, s, 10, setSubjects)}
+                    className={`inline-flex items-center gap-2 ${chip(selected)}`}
+                    onClick={() => toggle(interestLabels, o.label, 4, setInterestLabels)}
                   >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {step === 2 && (
-            <section>
-              <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                나의 행동 성향은 어디에 가깝나요?
-              </h1>
-              <p className="mt-1.5 text-sm text-slate-400">가장 가깝다고 느껴지는 항목을 하나 선택해 주세요</p>
-              <div className="mt-6 flex flex-col gap-3">
-                {PERSONALITY_OPTIONS.map((o) => (
-                  <button
-                    key={o.holland}
-                    type="button"
-                    className={`rounded-2xl border p-4.5 text-left text-sm font-bold tracking-tight transition duration-200 hover:scale-[1.01] active:scale-[0.99] ${
-                      personality === o.holland
-                        ? "border-pink-500 bg-pink-50/60 text-pink-700 ring-2 ring-pink-500/20"
-                        : "border-slate-200 bg-white hover:border-slate-300"
-                    }`}
-                    onClick={() => setPersonality(o.holland)}
-                  >
+                    <IconComponent className="h-4 w-4" />
                     {o.label}
                   </button>
-                ))}
-              </div>
-            </section>
-          )}
+                );
+              })}
+            </div>
+          </section>
+        )}
 
-          {step === 3 && (
-            <section>
-              <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                직업을 가질 때 가장 중요하게 보는 가치는?
-              </h1>
-              <p className="mt-1.5 text-sm text-slate-400">중요한 순서대로 최대 2개를 선택해 주세요</p>
-              <div className="mt-6 flex flex-wrap gap-2.5">
-                {VALUE_OPTIONS.map((o) => {
-                  const idx = values.indexOf(o.value);
-                  return (
+        {step === 1 && (
+          <section>
+            <h1 className="flex items-center gap-2 text-xl font-bold text-ink">
+              <BookOpen className="h-5 w-5 text-primary-500" strokeWidth={2} />
+              좋아하거나 자신 있는 과목은?
+            </h1>
+            <p className="mt-2 text-sm text-ink-lighter">다양하게 선택할 수 있습니다</p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {SUBJECT_OPTIONS.map((s) => (
+                <button
+                  key={s}
+                  type="button"
+                  className={chip(subjects.includes(s))}
+                  onClick={() => toggle(subjects, s, 10, setSubjects)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {step === 2 && (
+          <section>
+            <h1 className="text-xl font-bold text-ink">
+              나의 행동 성향은 어디에 가깝나요?
+            </h1>
+            <p className="mt-2 text-sm text-ink-lighter">가장 가깝다고 느껴지는 항목을 하나 선택해 주세요</p>
+            <div className="mt-6 flex flex-col gap-3">
+              {PERSONALITY_OPTIONS.map((o) => (
+                <button
+                  key={o.holland}
+                  type="button"
+                  className={`rounded-xl border p-4 text-left text-sm font-semibold transition duration-200 active:scale-[0.99] ${
+                    personality === o.holland
+                      ? "border-primary-300 bg-primary-50 text-primary-700"
+                      : "border-line bg-white text-ink hover:border-line-strong"
+                  }`}
+                  onClick={() => setPersonality(o.holland)}
+                >
+                  {o.label}
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {step === 3 && (
+          <section>
+            <h1 className="text-xl font-bold text-ink">
+              직업을 가질 때 가장 중요하게 보는 가치는?
+            </h1>
+            <p className="mt-2 text-sm text-ink-lighter">중요한 순서대로 최대 2개를 선택해 주세요</p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {VALUE_OPTIONS.map((o) => {
+                const idx = values.indexOf(o.value);
+                return (
+                  <button
+                    key={o.value}
+                    type="button"
+                    className={chip(idx >= 0)}
+                    onClick={() => toggle(values, o.value, 2, setValues)}
+                  >
+                    {idx >= 0 ? `${genOrdinal(idx)} · ` : ""}
+                    {o.label}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {step === 4 && (
+          <section>
+            <h1 className="text-xl font-bold text-ink">
+              학년과 소속 계열을 알려주세요
+            </h1>
+            <div className="mt-6 space-y-6">
+              <div>
+                <div className="mb-2 text-xs font-semibold text-ink">학년</div>
+                <div className="flex gap-2">
+                  {([1, 2, 3] as const).map((g) => (
                     <button
-                      key={o.value}
+                      key={g}
                       type="button"
-                      className={chip(idx >= 0)}
-                      onClick={() => toggle(values, o.value, 2, setValues)}
+                      className={chip(grade === g)}
+                      onClick={() => setGrade(g)}
                     >
-                      {idx >= 0 ? `${genOrdinal(idx)} · ` : ""}
-                      {o.label}
+                      고등학교 {g}학년
                     </button>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          {step === 4 && (
-            <section>
-              <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                학년과 소속 계열을 알려주세요
-              </h1>
-              <div className="mt-6 space-y-6">
-                <div>
-                  <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">학년</div>
-                  <div className="flex gap-2">
-                    {([1, 2, 3] as const).map((g) => (
-                      <button
-                        key={g}
-                        type="button"
-                        className={chip(grade === g)}
-                        onClick={() => setGrade(g)}
-                      >
-                        고등학교 {g}학년
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">계열선택</div>
-                  <div className="flex flex-wrap gap-2">
-                    {(["문과", "이과", "예체능", "미정"] as const).map((t) => (
-                      <button
-                        key={t}
-                        type="button"
-                        className={chip(track === t)}
-                        onClick={() => setTrack(t)}
-                      >
-                        {t === "미정" ? "아직 정하지 못함" : t}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">성격 유형 (MBTI · 선택)</div>
-                  <input
-                    type="text"
-                    value={mbti}
-                    onChange={(e) => setMbti(e.target.value.toUpperCase())}
-                    placeholder="예: INFJ"
-                    maxLength={4}
-                    className="w-36 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold uppercase tracking-wider text-slate-700 transition focus:border-pink-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-pink-100"
-                  />
-                  {mbti.trim() !== "" && !/^[EI][SN][TF][JP]$/i.test(mbti.trim()) && (
-                    <p className="mt-2 text-xs font-semibold text-red-500">올바른 MBTI 형식이 아닙니다</p>
-                  )}
+                  ))}
                 </div>
               </div>
-            </section>
-          )}
+              <div>
+                <div className="mb-2 text-xs font-semibold text-ink">계열 선택</div>
+                <div className="flex flex-wrap gap-2">
+                  {(["문과", "이과", "예체능", "미정"] as const).map((t) => (
+                    <button
+                      key={t}
+                      type="button"
+                      className={chip(track === t)}
+                      onClick={() => setTrack(t)}
+                    >
+                      {t === "미정" ? "아직 정하지 못함" : t}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="mb-2 text-xs font-semibold text-ink">성격 유형 (MBTI · 선택)</div>
+                <input
+                  type="text"
+                  value={mbti}
+                  onChange={(e) => setMbti(e.target.value.toUpperCase())}
+                  placeholder="예: INFJ"
+                  maxLength={4}
+                  className="w-36 rounded-lg border border-line-strong bg-white px-4 py-3 text-sm font-semibold uppercase text-ink placeholder:text-ink-lighter shadow-xs transition duration-200 focus:border-primary-500 focus:outline-none focus:ring-[3px] focus:ring-primary-500/15"
+                />
+                {mbti.trim() !== "" && !/^[EI][SN][TF][JP]$/i.test(mbti.trim()) && (
+                  <p className="mt-2 flex items-center gap-1 text-xs font-semibold text-error">
+                    <AlertTriangle className="h-3.5 w-3.5" /> 올바른 MBTI 형식이 아니에요
+                  </p>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
 
-          {step === 5 && (
-            <section>
-              <h1 className="text-xl font-extrabold text-slate-900 tracking-tight">
-                나에 대해 자유롭게 소개해 주세요
-              </h1>
-              <p className="mt-1.5 text-sm text-slate-400">
-                자신의 강점이나 활동한 경험, 소질을 간단하게 입력하면 AI 추천이 훨씬 더 정교해집니다 (선택)
-              </p>
-              <textarea
-                value={freeText}
-                onChange={(e) => setFreeText(e.target.value)}
-                maxLength={2000}
-                rows={6}
-                placeholder="예: 코딩 공부를 가볍게 하고 있고 컴퓨터 관련 기사에 흥미가 많아요. 손재주가 좋아 조립하는 것을 잘하고 학교 수학 동아리 부장을 맡아 축제 부스를 기획해 보기도 했습니다."
-                className="mt-5 w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-700 transition focus:border-pink-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-pink-100 placeholder:text-slate-400"
-              />
-            </section>
-          )}
+        {step === 5 && (
+          <section>
+            <h1 className="text-xl font-bold text-ink">
+              나에 대해 자유롭게 소개해 주세요
+            </h1>
+            <p className="mt-2 text-sm leading-relaxed text-ink-lighter">
+              자신의 강점이나 활동한 경험, 소질을 간단하게 입력하면 AI 추천이 훨씬 더 정교해집니다 (선택)
+            </p>
+            <textarea
+              value={freeText}
+              onChange={(e) => setFreeText(e.target.value)}
+              maxLength={2000}
+              rows={6}
+              placeholder="예: 코딩 공부를 가볍게 하고 있고 컴퓨터 관련 기사에 흥미가 많아요. 손재주가 좋아 조립하는 것을 잘하고 학교 수학 동아리 부장을 맡아 축제 부스를 기획해 보기도 했습니다."
+              className="mt-5 w-full rounded-lg border border-line-strong bg-white px-4 py-3 text-sm leading-relaxed text-ink placeholder:text-ink-lighter shadow-xs transition duration-200 focus:border-primary-500 focus:outline-none focus:ring-[3px] focus:ring-primary-500/15"
+            />
+          </section>
+        )}
 
-          {error && (
-            <p className="mt-4 rounded-xl bg-red-50 p-4.5 text-sm font-semibold text-red-600">{error}</p>
-          )}
+        {error && (
+          <p className="mt-4 rounded-lg bg-error-bg px-4 py-3 text-sm font-semibold text-error">{error}</p>
+        )}
 
-          {/* 내비게이션 */}
-          <div className="mt-8 flex justify-between">
+        {/* 내비게이션 */}
+        <div className="mt-8 flex justify-between">
+          <button
+            type="button"
+            onClick={() => setStep((s) => Math.max(0, s - 1))}
+            disabled={step === 0 || loading}
+            className="inline-flex items-center justify-center gap-1.5 rounded-full border border-line-strong bg-white px-5 py-2.5 text-sm font-bold text-ink shadow-xs transition duration-200 hover:border-primary-300 hover:text-primary-600 hover:bg-primary-50 active:scale-[0.98] disabled:invisible"
+          >
+            <ArrowLeft className="h-4 w-4" /> 이전
+          </button>
+          {step < TOTAL_STEPS - 1 ? (
             <button
               type="button"
-              onClick={() => setStep((s) => Math.max(0, s - 1))}
-              disabled={step === 0 || loading}
-              className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-500 transition hover:bg-slate-50 active:scale-95 disabled:invisible"
+              onClick={() => setStep((s) => s + 1)}
+              disabled={!canNext()}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-bold text-white shadow-md shadow-primary-500/15 transition duration-200 hover:bg-primary-600 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
             >
-              <ArrowLeft className="h-4 w-4" /> 이전
+              다음 <ArrowRight className="h-4 w-4" />
             </button>
-            {step < TOTAL_STEPS - 1 ? (
-              <button
-                type="button"
-                onClick={() => setStep((s) => s + 1)}
-                disabled={!canNext()}
-                className="inline-flex items-center gap-1.5 rounded-full bg-pink-500 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-500/10 transition hover:bg-pink-600 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40"
-              >
-                다음 <ArrowRight className="h-4 w-4" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={submit}
-                disabled={loading}
-                className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-7 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/15 transition hover:opacity-95 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
-              >
+          ) : (
+            <button
+              type="button"
+              onClick={submit}
+              disabled={loading}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-bold text-white shadow-md shadow-primary-500/15 transition duration-200 hover:bg-primary-600 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none"
+            >
+              {loading ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
                 <Search className="h-4 w-4" />
-                {loading ? "AI 분석 중..." : "AI 진로 결과 매칭"}
-              </button>
-            )}
-          </div>
+              )}
+              {loading ? "AI 분석 중..." : "AI 진로 결과 매칭"}
+            </button>
+          )}
         </div>
       </div>
 
-      <p className="mt-5 text-center text-xs text-slate-400">
+      <p className="mt-6 text-center text-xs font-medium text-ink-lighter">
         공식 진로심리검사 결과지 사진이 있다면{" "}
-        <Link href="/input/photo" className="font-bold text-pink-500 hover:underline inline-flex items-center gap-0.5">
+        <Link
+          href="/input/photo"
+          className="font-semibold text-primary-600 transition hover:text-primary-700"
+        >
           사진 업로드로 분석하기
         </Link>
         가 훨씬 정확합니다.

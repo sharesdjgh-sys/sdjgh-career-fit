@@ -2,93 +2,92 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #ec4899;         /* 로즈 핑크 */
-  --color-primary-dark: #be185d;
-  --color-primary-light: #fdf2f8;   /* 틴트 핑크 */
-  --color-secondary: #8b5cf6;       /* 라벤더 퍼플 */
-  --color-secondary-light: #f5f3ff;
-  --color-accent: #f43f5e;          /* 차분한 로즈 레드 */
-  --color-accent-light: #fff1f2;
-  --color-surface: #faf9fb;         /* 미세하게 핑크빛이 도는 크림 화이트 */
-  --color-ink: #1e1b4b;             /* 깊은 퍼플 네이비 (텍스트 시인성 확보 및 고급화) */
-  --color-ink-soft: #6b6a8a;        /* 소프트 퍼플 그레이 */
-  --radius-card: 24px;              /* 더 둥글둥글하고 러블리한 카드 */
-  --radius-btn: 9999px;             /* 완전한 알약형(Pill shape) */
+  /* ===== Primary: 정제된 로즈 핑크 (v1 #ec4899의 채도 다운 버전) ===== */
+  --color-primary-50: #FDF5F8;
+  --color-primary-100: #FBE8F1;
+  --color-primary-200: #F5C8DC;
+  --color-primary-300: #EFA9C6;
+  --color-primary-500: #E85B88;
+  --color-primary-600: #D1466F;
+  --color-primary-700: #B8366A;
+  --color-primary-900: #6B1B47;
+
+  /* ===== Secondary: 차분한 그레이 퍼플 (v1 #8b5cf6 대체) ===== */
+  --color-secondary-50: #F8F6FB;
+  --color-secondary-100: #EFE9F8;
+  --color-secondary-500: #7C6FA8;
+  --color-secondary-600: #6B5D91;
+  --color-secondary-700: #5A4D7A;
+
+  /* ===== Surface & Ink (중립 웜 그레이) ===== */
+  --color-surface: #FAFAF8;        /* 페이지 배경. 순백 회피 */
+  --color-surface-50: #F5F5F3;     /* 섹션 구분 배경 */
+  --color-surface-100: #EFEFED;    /* 비활성/스켈레톤 배경 */
+  --color-ink: #1A1822;            /* 제목·강조 텍스트 */
+  --color-ink-soft: #62616F;       /* 본문 텍스트 (white 대비 6.3:1) */
+  --color-ink-lighter: #9A9AAA;    /* placeholder, 메타정보 */
+
+  /* ===== 보더 (솔리드 hex — rgba 금지, 인쇄 안정성) ===== */
+  --color-line: #ECEAEE;           /* 기본 구분선·카드 보더 */
+  --color-line-strong: #DEDCE3;    /* 인풋·강조 보더 */
+
+  /* ===== Semantic (텍스트로 써도 WCAG AA 충족하는 진한 톤 + 전용 틴트 배경) ===== */
+  --color-success: #047857;
+  --color-success-bg: #ECFDF5;
+  --color-warning: #B45309;
+  --color-warning-bg: #FFFBEB;
+  --color-error: #DC2626;
+  --color-error-bg: #FEF2F2;
+  --color-info: #1D4ED8;
+  --color-info-bg: #EFF6FF;
+
+  /* ===== 폰트 ===== */
   --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* ===== 그림자 (Tailwind 기본 shadow-* 오버라이드) ===== */
+  --shadow-xs: 0 1px 2px rgba(26, 24, 34, 0.04);
+  --shadow-sm: 0 1px 3px rgba(26, 24, 34, 0.05), 0 1px 2px rgba(26, 24, 34, 0.03);
+  --shadow-md: 0 4px 12px rgba(26, 24, 34, 0.08), 0 2px 4px rgba(26, 24, 34, 0.04);
+  --shadow-lg: 0 12px 32px rgba(26, 24, 34, 0.12), 0 2px 8px rgba(26, 24, 34, 0.08);
 }
 
+/* ===== Base ===== */
 body {
-  background: #faf9fb;
-  color: #1e1b4b;
+  background: var(--color-surface);
+  color: var(--color-ink);
   font-family: var(--font-sans);
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 여고생 취향의 로즈 골드 & 핑크빛 더블베젤 */
-.double-bezel {
-  background: rgba(253, 242, 248, 0.6);
-  border: 1px solid rgba(244, 114, 182, 0.2);
-  padding: 0.45rem;
-  border-radius: 1.75rem;
-  box-shadow: 0 10px 30px -10px rgba(244, 114, 182, 0.12);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.double-bezel-inner {
-  background: #ffffff;
-  border: 1px solid rgba(244, 114, 182, 0.08);
-  border-radius: calc(1.75rem - 0.45rem);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.95), 0 12px 36px -12px rgba(236, 72, 153, 0.06);
+::selection {
+  background: var(--color-primary-100);
+  color: var(--color-primary-700);
 }
 
-/* 글래스모피즘 & 에어로글라스 카드 */
-.glass-card {
-  background: rgba(255, 255, 255, 0.65);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 10px 30px -10px rgba(244, 114, 182, 0.08);
-}
-
-/* 드림팝/솜사탕 펄 그라디언트 텍스트 */
-.gradient-text {
-  background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #f43f5e 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* 몽환적 오로라 백그라운드 */
-.aurora-blur {
-  position: absolute;
-  filter: blur(80px);
-  opacity: 0.6;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* 직업백과 본문 마크다운 스타일 */
+/* ===== 직업백과 마크다운 본문 ===== */
 .job-content h2 {
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  margin-top: 1.75rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid #e2e8f0;
+  color: var(--color-ink);
+  margin-top: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-line);
 }
-.job-content h2:first-child {
-  margin-top: 0;
-}
+.job-content h2:first-child { margin-top: 0; }
 .job-content h3 {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin-top: 1.25rem;
-  color: var(--color-primary-dark);
+  margin-top: 1.5rem;
+  color: var(--color-primary-600);
 }
 .job-content p {
   margin-top: 0.6rem;
-  font-size: 0.9rem;
+  font-size: 0.9375rem;
   line-height: 1.7;
-  color: #334155;
+  color: var(--color-ink-soft);
 }
 .job-content ul {
   margin-top: 0.6rem;
@@ -96,51 +95,82 @@ body {
   list-style: disc;
 }
 .job-content li {
-  margin-top: 0.3rem;
-  font-size: 0.9rem;
-  line-height: 1.65;
-  color: #334155;
+  margin-top: 0.35rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-ink-soft);
 }
-.job-content strong {
-  font-weight: 700;
-  color: var(--color-ink);
-}
+.job-content strong { font-weight: 700; color: var(--color-ink); }
 .job-content table {
   margin-top: 0.75rem;
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
 }
-.job-content th,
-.job-content td {
-  border: 1px solid #e2e8f0;
-  padding: 0.45rem 0.7rem;
+.job-content th, .job-content td {
+  border: 1px solid var(--color-line);
+  padding: 0.5rem 0.75rem;
   text-align: left;
+  color: var(--color-ink-soft);
 }
 .job-content th {
-  background: var(--color-surface);
+  background: var(--color-surface-50);
   font-weight: 600;
+  color: var(--color-ink);
 }
-.job-content hr {
-  margin: 1.5rem 0;
-  border-color: #e2e8f0;
-}
+.job-content hr { margin: 1.5rem 0; border-color: var(--color-line); }
 
-/* 인쇄(보고서) 스타일 */
+/* ===== AI 생성 텍스트 인라인 마크다운 (보고서·채팅 — 글자 크기·색은 부모 클래스 상속) ===== */
+.md-body > :first-child { margin-top: 0; }
+.md-body > :last-child { margin-bottom: 0; }
+.md-body p { margin: 0.5rem 0; }
+.md-body ul, .md-body ol {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+.md-body ul { list-style: disc; }
+.md-body ol { list-style: decimal; }
+.md-body li { margin-top: 0.25rem; }
+.md-body strong { font-weight: 700; color: var(--color-ink); }
+.md-body h1, .md-body h2, .md-body h3, .md-body h4 {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--color-ink);
+  border: none;
+  padding: 0;
+}
+.md-body a { color: var(--color-primary-600); font-weight: 600; text-decoration: underline; }
+.md-body code {
+  padding: 0.1em 0.35em;
+  border-radius: 0.25rem;
+  background: var(--color-surface-100);
+  font-size: 0.9em;
+}
+.md-body table {
+  margin: 0.5rem 0;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+}
+.md-body th, .md-body td {
+  border: 1px solid var(--color-line);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+.md-body th { background: var(--color-surface-50); font-weight: 600; color: var(--color-ink); }
+.md-body hr { margin: 0.75rem 0; border-color: var(--color-line); }
+
+/* ===== 인쇄(보고서) — 반드시 유지 ===== */
 @media print {
-  @page {
-    size: A4;
-    margin: 15mm;
-  }
+  @page { size: A4; margin: 15mm; }
   body {
     background: #fff !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .print-hidden {
-    display: none !important;
-  }
-  .print-break-avoid {
-    break-inside: avoid;
-  }
+  .print-hidden { display: none !important; }
+  .print-break-avoid { break-inside: avoid; }
+  .report-page { page-break-after: always; }
+  h2 { page-break-after: avoid; }
 }

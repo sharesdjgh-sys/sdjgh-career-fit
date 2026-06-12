@@ -1,26 +1,70 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css");
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2563eb;
-  --color-primary-dark: #1d4ed8;
-  --color-primary-light: #dbeafe;
-  --color-secondary: #10b981;
-  --color-secondary-light: #d1fae5;
-  --color-accent: #f59e0b;
-  --color-accent-light: #fef3c7;
-  --color-surface: #f8fafc;
-  --color-ink: #1e293b;
-  --color-ink-soft: #64748b;
-  --radius-card: 12px;
-  --radius-btn: 8px;
-  --font-sans: var(--font-noto), "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --color-primary: #ec4899;         /* 로즈 핑크 */
+  --color-primary-dark: #be185d;
+  --color-primary-light: #fdf2f8;   /* 틴트 핑크 */
+  --color-secondary: #8b5cf6;       /* 라벤더 퍼플 */
+  --color-secondary-light: #f5f3ff;
+  --color-accent: #f43f5e;          /* 차분한 로즈 레드 */
+  --color-accent-light: #fff1f2;
+  --color-surface: #faf9fb;         /* 미세하게 핑크빛이 도는 크림 화이트 */
+  --color-ink: #1e1b4b;             /* 깊은 퍼플 네이비 (텍스트 시인성 확보 및 고급화) */
+  --color-ink-soft: #6b6a8a;        /* 소프트 퍼플 그레이 */
+  --radius-card: 24px;              /* 더 둥글둥글하고 러블리한 카드 */
+  --radius-btn: 9999px;             /* 완전한 알약형(Pill shape) */
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 body {
-  background: var(--color-surface);
-  color: var(--color-ink);
+  background: #faf9fb;
+  color: #1e1b4b;
   font-family: var(--font-sans);
+  letter-spacing: -0.03em;
   word-break: keep-all;
+}
+
+/* 여고생 취향의 로즈 골드 & 핑크빛 더블베젤 */
+.double-bezel {
+  background: rgba(253, 242, 248, 0.6);
+  border: 1px solid rgba(244, 114, 182, 0.2);
+  padding: 0.45rem;
+  border-radius: 1.75rem;
+  box-shadow: 0 10px 30px -10px rgba(244, 114, 182, 0.12);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.double-bezel-inner {
+  background: #ffffff;
+  border: 1px solid rgba(244, 114, 182, 0.08);
+  border-radius: calc(1.75rem - 0.45rem);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.95), 0 12px 36px -12px rgba(236, 72, 153, 0.06);
+}
+
+/* 글래스모피즘 & 에어로글라스 카드 */
+.glass-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(244, 114, 182, 0.08);
+}
+
+/* 드림팝/솜사탕 펄 그라디언트 텍스트 */
+.gradient-text {
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #f43f5e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 몽환적 오로라 백그라운드 */
+.aurora-blur {
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* 직업백과 본문 마크다운 스타일 */

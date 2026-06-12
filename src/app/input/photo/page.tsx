@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { store } from "@/lib/storage";
 import type { TrackChoice } from "@/lib/types";
+import { Camera, X, AlertTriangle, PenTool, Search, HelpCircle, ChevronLeft } from "lucide-react";
 
 interface UploadedImage {
   preview: string; // dataURL (미리보기용)
@@ -119,25 +120,28 @@ export default function PhotoInputPage() {
   };
 
   const chip = (selected: boolean) =>
-    `rounded-btn border px-4 py-2.5 text-sm font-medium transition ${
+    `rounded-full border px-5 py-2.5 text-sm font-semibold tracking-tight transition duration-200 hover:scale-[1.02] active:scale-[0.98] ${
       selected
-        ? "border-primary bg-primary text-white"
-        : "border-slate-200 bg-white text-ink hover:border-primary/50"
+        ? "border-pink-500 bg-pink-500 text-white shadow-md shadow-pink-500/10"
+        : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
     }`;
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="text-2xl font-bold">검사 결과지 사진으로 시작하기</h1>
-      <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+    <div className="mx-auto max-w-2xl px-6 py-12">
+      <Link href="/" className="inline-flex items-center gap-1 text-sm font-semibold text-slate-500 hover:text-pink-500 transition mb-6">
+        <ChevronLeft className="h-4 w-4" />
+        메인으로 돌아가기
+      </Link>
+      <h1 className="text-3xl font-extrabold tracking-tight text-slate-900">결과지 사진으로 시작하기</h1>
+      <p className="mt-2.5 text-sm leading-relaxed text-slate-500">
         커리어넷(career.go.kr) 진로심리검사 결과지를 촬영하거나 캡처해서 올려주세요.
-        흥미검사·적성검사·가치관검사 결과지 모두 좋아요. AI가 사진에서 검사 결과를 읽어
-        분석합니다.
+        흥미·적성·가치관검사 결과지 모두 좋습니다. AI가 사진에서 필요한 데이터를 자동으로 추출합니다.
       </p>
 
       {/* 업로드 영역 */}
       <div
-        className={`mt-6 rounded-card border-2 border-dashed p-8 text-center transition ${
-          dragging ? "border-primary bg-primary-light/40" : "border-slate-300 bg-white"
+        className={`mt-8 rounded-3xl border-2 border-dashed p-10 text-center transition duration-300 ${
+          dragging ? "border-pink-500 bg-pink-50/40" : "border-slate-200 bg-white hover:border-pink-400/40"
         }`}
         onDragOver={(e) => {
           e.preventDefault();
@@ -150,18 +154,20 @@ export default function PhotoInputPage() {
           void addFiles(e.dataTransfer.files);
         }}
       >
-        <div className="text-4xl">📷</div>
-        <p className="mt-3 text-sm font-medium">
-          결과지 사진을 여기에 끌어다 놓거나 버튼을 눌러주세요
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-pink-50 text-pink-600">
+          <Camera className="h-7 w-7" />
+        </div>
+        <p className="mt-4 text-sm font-bold text-slate-800">
+          결과지 사진을 여기에 끌어다 놓거나 아래 버튼을 누르세요
         </p>
-        <p className="mt-1 text-xs text-ink-soft">
-          최대 {MAX_IMAGES}장 · 여러 장이면 흥미/적성/가치관 결과를 모두 분석해요
+        <p className="mt-1 text-xs text-slate-400">
+          최대 {MAX_IMAGES}장 · 여러 장 업로드 시 다양한 검사 결과가 함께 분석됩니다
         </p>
         <button
           type="button"
           onClick={() => fileRef.current?.click()}
           disabled={images.length >= MAX_IMAGES}
-          className="mt-4 rounded-btn bg-primary px-6 py-2.5 text-sm font-bold text-white transition hover:bg-primary-dark disabled:opacity-40"
+          className="mt-5 rounded-full bg-pink-500 px-6 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-500/10 transition duration-200 hover:bg-pink-600 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40"
         >
           사진 선택 / 촬영
         </button>
@@ -180,91 +186,105 @@ export default function PhotoInputPage() {
 
       {/* 미리보기 */}
       {images.length > 0 && (
-        <div className="mt-4 flex gap-3">
+        <div className="mt-6 flex flex-wrap gap-4">
           {images.map((img, i) => (
-            <div key={i} className="relative">
+            <div key={i} className="relative group">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={img.preview}
                 alt={`결과지 ${i + 1}`}
-                className="h-28 w-28 rounded-card border border-slate-200 object-cover"
+                className="h-28 w-28 rounded-2xl border border-slate-200 object-cover shadow-sm transition group-hover:opacity-95"
               />
               <button
                 type="button"
                 onClick={() => setImages(images.filter((_, j) => j !== i))}
-                className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink text-xs text-white"
+                className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-slate-900 text-white shadow-md transition hover:bg-slate-800 hover:scale-105"
                 aria-label="삭제"
               >
-                ✕
+                <X className="h-3.5 w-3.5" strokeWidth={2.5} />
               </button>
             </div>
           ))}
         </div>
       )}
 
-      {/* 추가 정보 */}
-      <section className="mt-8 rounded-card border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-base font-bold">추가 정보 (더 정확한 추천에 사용돼요)</h2>
-        <div className="mt-4 space-y-5">
-          <div>
-            <div className="mb-2 text-sm font-medium text-ink-soft">학년</div>
-            <div className="flex gap-2">
-              {([1, 2, 3] as const).map((g) => (
-                <button key={g} type="button" className={chip(grade === g)} onClick={() => setGrade(g)}>
-                  고{g}
-                </button>
-              ))}
+      {/* 추가 정보 (더블베젤 아키텍처 적용) */}
+      <section className="double-bezel mt-8">
+        <div className="double-bezel-inner p-6 shadow-sm">
+          <h2 className="text-base font-bold text-slate-900">추가 정보 입력</h2>
+          <p className="text-xs text-slate-400 mt-1">학생의 현재 상태와 의견을 반영하여 추천 정확도를 높입니다.</p>
+          
+          <div className="mt-6 space-y-6">
+            <div>
+              <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">학년</div>
+              <div className="flex gap-2">
+                {([1, 2, 3] as const).map((g) => (
+                  <button key={g} type="button" className={chip(grade === g)} onClick={() => setGrade(g)}>
+                    고등학교 {g}학년
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="mb-2 text-sm font-medium text-ink-soft">계열 (선택)</div>
-            <div className="flex flex-wrap gap-2">
-              {(["문과", "이과", "예체능", "미정"] as const).map((t) => (
-                <button key={t} type="button" className={chip(track === t)} onClick={() => setTrack(t)}>
-                  {t === "미정" ? "아직 모름" : t}
-                </button>
-              ))}
+
+            <div>
+              <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">희망 계열</div>
+              <div className="flex flex-wrap gap-2">
+                {(["문과", "이과", "예체능", "미정"] as const).map((t) => (
+                  <button key={t} type="button" className={chip(track === t)} onClick={() => setTrack(t)}>
+                    {t === "미정" ? "아직 정하지 못함" : t}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="mb-2 text-sm font-medium text-ink-soft">MBTI (선택)</div>
-            <input
-              type="text"
-              value={mbti}
-              onChange={(e) => setMbti(e.target.value.toUpperCase())}
-              placeholder="예: ENFP"
-              maxLength={4}
-              className="w-32 rounded-btn border border-slate-200 px-3 py-2 text-sm uppercase focus:border-primary focus:outline-none"
-            />
-            {!mbtiValid && (
-              <p className="mt-1 text-xs text-red-500">올바른 MBTI 형식이 아니에요</p>
-            )}
-          </div>
-          <div>
-            <div className="mb-2 text-sm font-medium text-ink-soft">
-              하고 싶은 말 (선택)
+
+            <div>
+              <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">성격 유형 (MBTI · 선택)</div>
+              <input
+                type="text"
+                value={mbti}
+                onChange={(e) => setMbti(e.target.value.toUpperCase())}
+                placeholder="예: INFJ"
+                maxLength={4}
+                className="w-36 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold uppercase tracking-wider text-slate-700 transition focus:border-pink-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-pink-100"
+              />
+              {!mbtiValid && (
+                <p className="mt-2 text-xs font-semibold text-red-500 flex items-center gap-1">
+                  <AlertTriangle className="h-3.5 w-3.5" /> 올바른 MBTI 형식이 아니에요
+                </p>
+              )}
             </div>
-            <textarea
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-              maxLength={1000}
-              rows={3}
-              placeholder="예: 사람들 앞에서 발표하는 건 좋아하는데 오래 앉아있는 건 힘들어요."
-              className="w-full rounded-btn border border-slate-200 p-3 text-sm leading-relaxed focus:border-primary focus:outline-none"
-            />
+
+            <div>
+              <div className="mb-2.5 text-xs font-bold text-slate-400 uppercase tracking-wider">
+                나의 특성이나 하고 싶은 말 (선택)
+              </div>
+              <textarea
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+                maxLength={1000}
+                rows={3}
+                placeholder="예: 기계 조립이나 수학 계산을 좋아하고, 다인원 협업보다는 혼자 집중해서 분석하는 것을 잘해요."
+                className="w-full rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm leading-relaxed text-slate-700 transition focus:border-pink-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-pink-100 placeholder:text-slate-400"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       {error && (
-        <div className="mt-4 rounded-card border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-          <p>{error}</p>
+        <div className="mt-6 rounded-2xl border border-red-100 bg-red-50/50 p-5 text-sm text-red-700">
+          <div className="flex gap-2 font-bold items-center">
+            <AlertTriangle className="h-4.5 w-4.5 text-red-500" />
+            <span>분석 중 문제가 생겼습니다</span>
+          </div>
+          <p className="mt-1.5 text-xs text-red-600 leading-relaxed">{error}</p>
           {fallback && (
             <Link
               href="/input/quick"
-              className="mt-2 inline-block rounded-btn bg-secondary px-4 py-2 text-sm font-bold text-white hover:bg-emerald-600"
+              className="mt-4 inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-2.5 text-xs font-bold text-white shadow-sm transition hover:bg-slate-800"
             >
-              ✏️ 간편 입력으로 진행하기
+              <PenTool className="h-3.5 w-3.5" />
+              간편 입력으로 계속하기
             </Link>
           )}
         </div>
@@ -274,17 +294,19 @@ export default function PhotoInputPage() {
         type="button"
         onClick={submit}
         disabled={images.length === 0 || !mbtiValid || loading}
-        className="mt-6 w-full rounded-btn bg-primary py-3.5 text-base font-bold text-white shadow-md transition hover:bg-primary-dark disabled:opacity-40"
+        className="mt-8 flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 py-4 text-base font-bold text-white shadow-lg shadow-pink-500/15 transition duration-200 hover:opacity-95 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40"
       >
-        {loading ? "AI가 결과지를 분석하고 있어요... (최대 30초)" : "🔍 AI 분석 시작하기"}
+        <Search className="h-5 w-5" />
+        {loading ? "AI가 결과지를 정밀 분석하는 중... (최대 30초)" : "AI 진로 매칭 분석 시작하기"}
       </button>
 
-      <p className="mt-4 text-center text-sm text-ink-soft">
-        결과지가 없나요?{" "}
-        <Link href="/input/quick" className="font-medium text-primary hover:underline">
+      <p className="mt-5 text-center text-xs text-slate-400 flex items-center justify-center gap-1.5 leading-relaxed">
+        <HelpCircle className="h-4 w-4 shrink-0" />
+        결과지가 없다면{" "}
+        <Link href="/input/quick" className="font-bold text-pink-500 hover:underline">
           간편 입력으로 시작
         </Link>
-        해도 충분해요. 업로드한 사진은 분석 후 바로 폐기되며 서버에 저장되지 않아요.
+        할 수 있습니다. 업로드 사진은 즉시 영구 삭제됩니다.
       </p>
     </div>
   );

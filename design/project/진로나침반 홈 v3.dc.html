@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&amp;display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+  <style>
+    html, body { margin: 0; padding: 0; background: #EDEAE5; }
+    body { font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif; word-break: keep-all; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    * { box-sizing: border-box; }
+    @keyframes compass-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes compass-spin-rev { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+    @keyframes compass-seek {
+      0% { transform: rotate(0deg); }
+      16% { transform: rotate(-16deg); }
+      36% { transform: rotate(10deg); }
+      54% { transform: rotate(-6deg); }
+      70% { transform: rotate(3deg); }
+      84% { transform: rotate(-1.5deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes star-twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+    @media (prefers-reduced-motion: reduce) {
+      svg * { animation: none !important; }
+    }
+  </style>
+</helmet>
+
+<div style="display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 56px 48px 96px 48px;">
+
+  <!-- ===== 프레젠테이션 헤더 ===== -->
+  <div style="width: 100%; max-width: 1440px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 0 4px 20px 4px;">
+    <div style="display: flex; align-items: baseline; gap: 14px;">
+      <span style="font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; color: #26222B;">진로나침반 v3</span>
+      <span style="font-size: 14px; color: #97919E;">홈 (랜딩) 시안 — 딥 로즈 × 슬레이트, 세리프 포인트, 라인 드로잉</span>
+    </div>
+    <span style="font-size: 13px; color: #97919E;">2026.06</span>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- 데스크톱 1440                                                     -->
+  <!-- ================================================================ -->
+  <div style="width: 100%; max-width: 1440px; display: flex; flex-direction: column; gap: 12px;">
+    <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #97919E;">데스크톱 · 1440</span>
+
+    <div data-screen-label="홈 데스크톱" style="width: 1440px; background: #FBF9F6; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 2px rgba(38,34,43,0.06), 0 12px 40px rgba(38,34,43,0.10); border: 1px solid #E3DED8;">
+
+      <!-- 글로벌 헤더 -->
+      <header style="display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 56px; border-bottom: 1px solid #ECE7E1; background: rgba(251,249,246,0.9);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <circle cx="14" cy="14" r="12.5" stroke="#26222B" stroke-width="1.4"></circle>
+            <polygon points="14,14 19.6,8.4 14.9,13.1" fill="#D6456B"></polygon>
+            <polygon points="14,14 19.6,8.4 13.1,14.9" fill="#D6456B"></polygon>
+            <polygon points="14,14 8.4,19.6 14.9,13.1 13.1,14.9" fill="#3D3A52"></polygon>
+            <circle cx="14" cy="14" r="1.6" fill="#FBF9F6" stroke="#26222B" stroke-width="0.9"></circle>
+          </svg>
+          <span style="font-family: 'Noto Serif KR', serif; font-size: 19px; font-weight: 700; color: #26222B; letter-spacing: -0.01em;">진로나침반</span>
+        </div>
+        <nav style="display: flex; align-items: center; gap: 36px;">
+          <a href="#" style="font-size: 15px; font-weight: 500; color: #5B5663; text-decoration: none;" style-hover="color: #26222B;">추천 결과</a>
+          <a href="#" style="font-size: 15px; font-weight: 500; color: #5B5663; text-decoration: none;" style-hover="color: #26222B;">AI 상담</a>
+          <a href="#" style="font-size: 15px; font-weight: 500; color: #5B5663; text-decoration: none;" style-hover="color: #26222B;">보고서</a>
+        </nav>
+      </header>
+
+      <!-- 히어로 -->
+      <section style="display: grid; grid-template-columns: 1fr 520px; gap: 64px; align-items: center; padding: 88px 96px 96px 96px; position: relative;">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 28px;">
+          <span style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 1px solid #EBD7DD; border-radius: 999px; background: #FFFFFF; font-size: 13px; font-weight: 600; color: #8E2647; letter-spacing: 0.02em;">
+            <svg width="14" height="14" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12" stroke="#8E2647" stroke-width="2"></circle><polygon points="14,14 19.6,8.4 13.1,14.9 14.9,13.1" fill="#8E2647"></polygon></svg>
+            AI 기반 맞춤 진로 가이드
+          </span>
+          <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 60px; line-height: 1.28; font-weight: 700; color: #26222B; letter-spacing: -0.015em;">
+            나만의 <span style="color: #D6456B;">진로</span>를<br>찾아보세요
+          </h1>
+          <p style="margin: 0; font-size: 18px; line-height: 1.7; color: #5B5663; max-width: 480px;">
+            진로심리검사 결과지 사진 한 장이면 충분해요. 579개 직업 데이터에서 나에게 맞는 직업과 전공, 고교 선택과목까지 안내해 드려요.
+          </p>
+          <div style="display: flex; align-items: center; gap: 14px; margin-top: 8px;">
+            <a href="#" style="display: inline-flex; align-items: center; gap: 10px; padding: 17px 30px; border-radius: 999px; background: #D6456B; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 0 2px 8px rgba(214,69,107,0.28); transition: all 0.2s ease;" style-hover="background: #C13A5F; transform: translateY(-2px); box-shadow: 0 6px 16px rgba(214,69,107,0.32);">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+              결과지 사진으로 시작하기
+            </a>
+            <a href="#" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border-radius: 999px; background: #FFFFFF; border: 1px solid #D4CDC6; color: #3D3A52; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.2s ease;" style-hover="border-color: #3D3A52; transform: translateY(-2px);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+              간편 입력으로 시작하기
+            </a>
+          </div>
+          <p style="margin: 0; font-size: 14px; color: #97919E;">검사를 아직 안 받았어도 괜찮아요 — 5개의 질문이면 충분해요.</p>
+        </div>
+
+        <!-- 나침반 라인 드로잉 -->
+        <div style="display: flex; justify-content: center;">
+          <svg width="480" height="480" viewBox="0 0 480 480" fill="none" aria-hidden="true">
+            <circle cx="240" cy="240" r="228" stroke="#3D3A52" stroke-opacity="0.22" stroke-width="1"></circle>
+            <circle cx="240" cy="240" r="218" stroke="#3D3A52" stroke-opacity="0.5" stroke-width="9" stroke-dasharray="1 13" style="transform-origin: 240px 240px; animation: compass-spin 90s linear infinite;"></circle>
+            <circle cx="240" cy="240" r="168" stroke="#3D3A52" stroke-opacity="0.28" stroke-width="1" stroke-dasharray="3 6" style="transform-origin: 240px 240px; animation: compass-spin-rev 140s linear infinite;"></circle>
+            <circle cx="240" cy="240" r="108" stroke="#3D3A52" stroke-opacity="0.18" stroke-width="1"></circle>
+            <line x1="240" y1="36" x2="240" y2="444" stroke="#3D3A52" stroke-opacity="0.12" stroke-width="1"></line>
+            <line x1="36" y1="240" x2="444" y2="240" stroke="#3D3A52" stroke-opacity="0.12" stroke-width="1"></line>
+            <text x="240" y="24" text-anchor="middle" font-family="Noto Serif KR, serif" font-size="15" font-weight="600" fill="#26222B">N</text>
+            <text x="462" y="245" text-anchor="middle" font-family="Noto Serif KR, serif" font-size="14" fill="#97919E">E</text>
+            <text x="240" y="472" text-anchor="middle" font-family="Noto Serif KR, serif" font-size="14" fill="#97919E">S</text>
+            <text x="18" y="245" text-anchor="middle" font-family="Noto Serif KR, serif" font-size="14" fill="#97919E">W</text>
+            <polyline points="118,108 158,140 196,112 224,150" stroke="#3D3A52" stroke-opacity="0.32" stroke-width="0.8"></polyline>
+            <circle cx="118" cy="108" r="2.6" fill="#3D3A52"></circle>
+            <circle cx="158" cy="140" r="2.6" fill="#D6456B" style="animation: star-twinkle 3.2s ease-in-out infinite;"></circle>
+            <circle cx="196" cy="112" r="2.6" fill="#3D3A52"></circle>
+            <circle cx="224" cy="150" r="3.2" fill="#D6456B" style="animation: star-twinkle 4.1s ease-in-out 1.2s infinite;"></circle>
+            <polyline points="306,330 338,360 372,338" stroke="#3D3A52" stroke-opacity="0.32" stroke-width="0.8"></polyline>
+            <circle cx="306" cy="330" r="2.6" fill="#3D3A52"></circle>
+            <circle cx="338" cy="360" r="2.6" fill="#D6456B" style="animation: star-twinkle 3.6s ease-in-out 0.6s infinite;"></circle>
+            <circle cx="372" cy="338" r="2.6" fill="#3D3A52"></circle>
+            <g style="transform-origin: 240px 240px; animation: compass-seek 7s ease-in-out infinite;">
+              <polygon points="344,136 250,250 230,230" fill="#D6456B"></polygon>
+              <polygon points="344,136 250,250 240,240" fill="#A93553" fill-opacity="0.55"></polygon>
+              <polygon points="136,344 230,230 250,250" fill="#3D3A52"></polygon>
+            </g>
+            <circle cx="240" cy="240" r="11" stroke="#26222B" stroke-width="1.2" fill="#FBF9F6"></circle>
+            <circle cx="240" cy="240" r="3.5" fill="#26222B"></circle>
+          </svg>
+        </div>
+      </section>
+
+      <!-- 특징 카드 3장 -->
+      <section style="padding: 8px 96px 88px 96px; display: flex; flex-direction: column; gap: 36px;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.14em; color: #D6456B;">핵심 기능</span>
+          <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 34px; font-weight: 700; color: #26222B; letter-spacing: -0.01em;">진로 탐색에 필요한 전부</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+
+          <div style="display: flex; flex-direction: column; gap: 18px; background: #FFFFFF; border: 1px solid #EAE5DF; border-radius: 18px; padding: 32px; transition: all 0.25s ease;" style-hover="transform: translateY(-3px); box-shadow: 0 10px 28px rgba(38,34,43,0.08); border-color: #E0D8D1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D6456B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path><path d="M2 13h20"></path></svg>
+              <span style="font-family: 'Noto Serif KR', serif; font-style: italic; font-size: 15px; color: #C9B8BE;">01</span>
+            </div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 700; color: #26222B;">맞춤 직업 추천</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #5B5663;">579개 직업 데이터에서 나의 흥미·적성에 꼭 맞는 직업 Top 10을 골라 드려요.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 18px; background: #FFFFFF; border: 1px solid #EAE5DF; border-radius: 18px; padding: 32px; transition: all 0.25s ease;" style-hover="transform: translateY(-3px); box-shadow: 0 10px 28px rgba(38,34,43,0.08); border-color: #E0D8D1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D6456B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.92 12.7 15.3a1.6 1.6 0 0 1-1.4 0L2.58 10.92a1 1 0 0 1 0-1.84l8.72-4.38a1.6 1.6 0 0 1 1.4 0l8.72 4.38a1 1 0 0 1 0 1.84Z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
+              <span style="font-family: 'Noto Serif KR', serif; font-style: italic; font-size: 15px; color: #C9B8BE;">02</span>
+            </div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 700; color: #26222B;">전공·학과 안내</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #5B5663;">추천 직업으로 이어지는 대학 전공과 학과 정보를 한눈에 정리해 드려요.</p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 18px; background: #FFFFFF; border: 1px solid #EAE5DF; border-radius: 18px; padding: 32px; transition: all 0.25s ease;" style-hover="transform: translateY(-3px); box-shadow: 0 10px 28px rgba(38,34,43,0.08); border-color: #E0D8D1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D6456B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg>
+              <span style="font-family: 'Noto Serif KR', serif; font-style: italic; font-size: 15px; color: #C9B8BE;">03</span>
+            </div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 700; color: #26222B;">고교 과목 가이드</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.65; color: #5B5663;">고1부터 고3까지, 학년별로 들으면 좋은 선택과목을 로드맵으로 알려 드려요.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 통계 배너 -->
+      <section style="background: #34304A; padding: 64px 96px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.14); padding: 0 24px;">
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 52px; font-weight: 700; color: #FFFFFF; line-height: 1;">579</span>
+            <span style="font-size: 15px; color: #B9B4CC; letter-spacing: 0.04em;">개 직업 데이터</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; border-right: 1px solid rgba(255,255,255,0.14); padding: 0 24px;">
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 52px; font-weight: 700; color: #FFFFFF; line-height: 1;">11</span>
+            <span style="font-size: 15px; color: #B9B4CC; letter-spacing: 0.04em;">개 직업 분야</span>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 24px;">
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 52px; font-weight: 700; color: #F2A9BE; line-height: 1;">AI</span>
+            <span style="font-size: 15px; color: #B9B4CC; letter-spacing: 0.04em;">맞춤 분석 보고서</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 이용 순서 4단계 -->
+      <section style="padding: 88px 96px; display: flex; flex-direction: column; gap: 48px;">
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+          <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.14em; color: #D6456B;">이용 순서</span>
+          <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 34px; font-weight: 700; color: #26222B; letter-spacing: -0.01em;">네 단계면 충분해요</h2>
+        </div>
+        <div style="position: relative;">
+          <div style="position: absolute; top: 26px; left: 120px; right: 120px; border-top: 1.5px dashed #D9CFD2;"></div>
+          <div style="position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+              <div style="width: 52px; height: 52px; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #D6456B; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: #D6456B;">1</div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 17px; font-weight: 700; color: #26222B;">결과지 업로드</span>
+                <span style="font-size: 14px; line-height: 1.6; color: #5B5663; max-width: 200px;">결과지 사진 또는 간편 입력으로 시작해요</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+              <div style="width: 52px; height: 52px; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #DDD6D9; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: #3D3A52;">2</div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 17px; font-weight: 700; color: #26222B;">AI 분석</span>
+                <span style="font-size: 14px; line-height: 1.6; color: #5B5663; max-width: 200px;">AI가 나의 흥미와 적성을 분석해요</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+              <div style="width: 52px; height: 52px; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #DDD6D9; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: #3D3A52;">3</div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 17px; font-weight: 700; color: #26222B;">직업 Top 10 추천</span>
+                <span style="font-size: 14px; line-height: 1.6; color: #5B5663; max-width: 200px;">나에게 맞는 직업 10개를 추천받아요</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center;">
+              <div style="width: 52px; height: 52px; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #DDD6D9; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: #3D3A52;">4</div>
+              <div style="display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 17px; font-weight: 700; color: #26222B;">로드맵 보고서</span>
+                <span style="font-size: 14px; line-height: 1.6; color: #5B5663; max-width: 200px;">인쇄 가능한 학습 로드맵 보고서를 받아요</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 푸터 -->
+      <footer style="border-top: 1px solid #ECE7E1; padding: 28px 96px; display: flex; justify-content: center;">
+        <span style="font-size: 13px; color: #97919E;">진로나침반 — 교육청 진로교육 지원 서비스 · 직업 정보 출처: 직업백과</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ================================================================ -->
+  <!-- 모바일 390                                                        -->
+  <!-- ================================================================ -->
+  <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 36px; align-self: center;">
+    <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: #97919E;">모바일 · 390</span>
+
+    <div data-screen-label="홈 모바일" style="width: 390px; background: #FBF9F6; border-radius: 28px; overflow: hidden; box-shadow: 0 1px 2px rgba(38,34,43,0.06), 0 12px 40px rgba(38,34,43,0.10); border: 1px solid #E3DED8;">
+
+      <!-- 모바일 헤더 -->
+      <header style="display: flex; align-items: center; justify-content: space-between; height: 56px; padding: 0 20px; border-bottom: 1px solid #ECE7E1;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+            <circle cx="14" cy="14" r="12.5" stroke="#26222B" stroke-width="1.4"></circle>
+            <polygon points="14,14 19.6,8.4 13.1,14.9 14.9,13.1" fill="#D6456B"></polygon>
+            <polygon points="14,14 8.4,19.6 14.9,13.1 13.1,14.9" fill="#3D3A52"></polygon>
+            <circle cx="14" cy="14" r="1.6" fill="#FBF9F6" stroke="#26222B" stroke-width="0.9"></circle>
+          </svg>
+          <span style="font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #26222B;">진로나침반</span>
+        </div>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3D3A52" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
+      </header>
+
+      <!-- 모바일 히어로 -->
+      <section style="padding: 44px 24px 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 22px; text-align: center;">
+        <span style="display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; border: 1px solid #EBD7DD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #8E2647;">
+          <svg width="12" height="12" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12" stroke="#8E2647" stroke-width="2"></circle><polygon points="14,14 19.6,8.4 13.1,14.9 14.9,13.1" fill="#8E2647"></polygon></svg>
+          AI 기반 맞춤 진로 가이드
+        </span>
+        <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; line-height: 1.32; font-weight: 700; color: #26222B; letter-spacing: -0.015em;">
+          나만의 <span style="color: #D6456B;">진로</span>를<br>찾아보세요
+        </h1>
+        <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #5B5663;">
+          진로심리검사 결과지 사진 한 장이면 충분해요. 579개 직업에서 나에게 맞는 길을 안내해 드려요.
+        </p>
+
+        <svg width="232" height="232" viewBox="0 0 480 480" fill="none" style="margin: 4px 0;" aria-hidden="true">
+          <circle cx="240" cy="240" r="228" stroke="#3D3A52" stroke-opacity="0.22" stroke-width="1.6"></circle>
+          <circle cx="240" cy="240" r="214" stroke="#3D3A52" stroke-opacity="0.5" stroke-width="13" stroke-dasharray="1.5 19" style="transform-origin: 240px 240px; animation: compass-spin 90s linear infinite;"></circle>
+          <circle cx="240" cy="240" r="160" stroke="#3D3A52" stroke-opacity="0.28" stroke-width="1.6" stroke-dasharray="5 9" style="transform-origin: 240px 240px; animation: compass-spin-rev 140s linear infinite;"></circle>
+          <line x1="240" y1="46" x2="240" y2="434" stroke="#3D3A52" stroke-opacity="0.12" stroke-width="1.6"></line>
+          <line x1="46" y1="240" x2="434" y2="240" stroke="#3D3A52" stroke-opacity="0.12" stroke-width="1.6"></line>
+          <polyline points="118,118 162,148 204,118" stroke="#3D3A52" stroke-opacity="0.32" stroke-width="1.4"></polyline>
+          <circle cx="118" cy="118" r="4.5" fill="#3D3A52"></circle>
+          <circle cx="162" cy="148" r="4.5" fill="#D6456B" style="animation: star-twinkle 3.2s ease-in-out infinite;"></circle>
+          <circle cx="204" cy="118" r="4.5" fill="#3D3A52"></circle>
+          <g style="transform-origin: 240px 240px; animation: compass-seek 7s ease-in-out infinite;">
+            <polygon points="344,136 250,250 230,230" fill="#D6456B"></polygon>
+            <polygon points="136,344 230,230 250,250" fill="#3D3A52"></polygon>
+          </g>
+          <circle cx="240" cy="240" r="16" stroke="#26222B" stroke-width="2" fill="#FBF9F6"></circle>
+          <circle cx="240" cy="240" r="5.5" fill="#26222B"></circle>
+        </svg>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+          <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; padding: 16px 0; border-radius: 999px; background: #D6456B; color: #FFFFFF; font-size: 16px; font-weight: 700; text-decoration: none; box-shadow: 0 2px 8px rgba(214,69,107,0.28);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+            결과지 사진으로 시작하기
+          </a>
+          <a href="#" style="display: flex; align-items: center; justify-content: center; gap: 9px; width: 100%; padding: 15px 0; border-radius: 999px; background: #FFFFFF; border: 1px solid #D4CDC6; color: #3D3A52; font-size: 16px; font-weight: 600; text-decoration: none;">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg>
+            간편 입력으로 시작하기
+          </a>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #97919E;">검사를 아직 안 받았어도 괜찮아요</p>
+      </section>
+
+      <!-- 모바일 특징 카드 -->
+      <section style="padding: 8px 20px 40px 20px; display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D6456B;">핵심 기능</span>
+          <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 700; color: #26222B;">진로 탐색에 필요한 전부</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: flex-start; gap: 16px; background: #FFFFFF; border: 1px solid #EAE5DF; border-radius: 16px; padding: 20px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D6456B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path><path d="M2 13h20"></path></svg>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+              <span style="font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #26222B;">맞춤 직업 추천</span>
+              <span style="font-size: 14px; line-height: 1.6; color: #5B5663;">579개 직업에서 나에게 꼭 맞는 Top 10을 골라 드려요.</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 16px; background: #FFFFFF; border: 1px solid #EAE5DF; border-radius: 16px; padding: 20px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D6456B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;" aria-hidden="true"><path d="M21.42 10.92 12.7 15.3a1.6 1.6 0 0 1-1.4 0L2.58 10.92a1 1 0 0 1 0-1.84l8.72-4.38a1.6 1.6 0 0 1 1.4 0l8.72 4.38a1 1 0 0 1 0 1.84Z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+              <span style="font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #26222B;">전공·학과 안내</span>
+              <span style="font-size: 14px; line-height: 1.6; color: #5B5663;">직업으로 이어지는 대학 전공을 한눈에 정리해 드려요.</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 16px; background: #FFFFFF; border: 1px solid #EAE5DF; border-radius: 16px; padding: 20px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D6456B" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;" aria-hidden="true"><path d="M2 4h6a4 4 0 0 1 4 4v12a3 3 0 0 0-3-3H2z"></path><path d="M22 4h-6a4 4 0 0 0-4 4v12a3 3 0 0 1 3-3h7z"></path></svg>
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+              <span style="font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #26222B;">고교 과목 가이드</span>
+              <span style="font-size: 14px; line-height: 1.6; color: #5B5663;">학년별로 들으면 좋은 선택과목을 알려 드려요.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 모바일 통계 -->
+      <section style="background: #34304A; padding: 32px 20px; display: grid; grid-template-columns: 1fr 1fr 1fr;">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; border-right: 1px solid rgba(255,255,255,0.14);">
+          <span style="font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 700; color: #FFFFFF; line-height: 1;">579</span>
+          <span style="font-size: 12px; color: #B9B4CC;">직업 데이터</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; border-right: 1px solid rgba(255,255,255,0.14);">
+          <span style="font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 700; color: #FFFFFF; line-height: 1;">11</span>
+          <span style="font-size: 12px; color: #B9B4CC;">직업 분야</span>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+          <span style="font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 700; color: #F2A9BE; line-height: 1;">AI</span>
+          <span style="font-size: 12px; color: #B9B4CC;">분석 보고서</span>
+        </div>
+      </section>
+
+      <!-- 모바일 이용 순서 -->
+      <section style="padding: 40px 24px 44px 24px; display: flex; flex-direction: column; gap: 28px;">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: #D6456B;">이용 순서</span>
+          <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 700; color: #26222B;">네 단계면 충분해요</h2>
+        </div>
+        <div style="position: relative; display: flex; flex-direction: column; gap: 26px;">
+          <div style="position: absolute; top: 12px; bottom: 12px; left: 21px; border-left: 1.5px dashed #D9CFD2;"></div>
+          <div style="position: relative; display: flex; align-items: flex-start; gap: 16px;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #D6456B; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #D6456B;">1</div>
+            <div style="display: flex; flex-direction: column; gap: 3px; padding-top: 2px;">
+              <span style="font-size: 16px; font-weight: 700; color: #26222B;">결과지 업로드</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: #5B5663;">결과지 사진 또는 간편 입력으로 시작해요</span>
+            </div>
+          </div>
+          <div style="position: relative; display: flex; align-items: flex-start; gap: 16px;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #DDD6D9; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #3D3A52;">2</div>
+            <div style="display: flex; flex-direction: column; gap: 3px; padding-top: 2px;">
+              <span style="font-size: 16px; font-weight: 700; color: #26222B;">AI 분석</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: #5B5663;">AI가 나의 흥미와 적성을 분석해요</span>
+            </div>
+          </div>
+          <div style="position: relative; display: flex; align-items: flex-start; gap: 16px;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #DDD6D9; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #3D3A52;">3</div>
+            <div style="display: flex; flex-direction: column; gap: 3px; padding-top: 2px;">
+              <span style="font-size: 16px; font-weight: 700; color: #26222B;">직업 Top 10 추천</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: #5B5663;">나에게 맞는 직업 10개를 추천받아요</span>
+            </div>
+          </div>
+          <div style="position: relative; display: flex; align-items: flex-start; gap: 16px;">
+            <div style="width: 42px; height: 42px; flex-shrink: 0; border-radius: 999px; background: #FBF9F6; border: 1.5px solid #DDD6D9; display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 700; color: #3D3A52;">4</div>
+            <div style="display: flex; flex-direction: column; gap: 3px; padding-top: 2px;">
+              <span style="font-size: 16px; font-weight: 700; color: #26222B;">로드맵 보고서</span>
+              <span style="font-size: 13.5px; line-height: 1.6; color: #5B5663;">인쇄 가능한 학습 로드맵 보고서를 받아요</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer style="border-top: 1px solid #ECE7E1; padding: 20px 24px; display: flex; justify-content: center;">
+        <span style="font-size: 12px; color: #97919E; text-align: center;">진로나침반 — 교육청 진로교육 지원 서비스</span>
+      </footer>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

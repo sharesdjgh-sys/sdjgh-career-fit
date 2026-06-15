@@ -39,12 +39,12 @@ function groupByStd(cards: JobCard[]): [string, JobCard[]][] {
 
 function JobCardItem({ card, showCategory }: { card: JobCard; showCategory?: boolean }) {
   const Icon = CATEGORY_ICONS[card.categoryName] ?? Compass;
-  const { accent } = categoryColor(card.categoryName);
+  const { accent, tint } = categoryColor(card.categoryName);
   return (
     <Link
       href={`/jobs/${card.id}`}
-      style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
-      className="group flex h-full flex-col rounded-xl border border-line bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+      style={{ borderLeftColor: accent, borderLeftWidth: 4, backgroundColor: tint }}
+      className="group flex h-full flex-col rounded-xl border border-line p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
     >
       <div className="flex items-center gap-1.5 text-xs font-semibold text-ink-lighter">
         <Icon className="h-3.5 w-3.5" style={{ color: accent }} />
@@ -64,7 +64,7 @@ function JobCardItem({ card, showCategory }: { card: JobCard; showCategory?: boo
         {card.tags.map((t) => (
           <span
             key={t}
-            className="inline-flex items-center rounded-full border border-line bg-surface-50 px-3 py-1 text-xs font-semibold text-ink-soft"
+            className="inline-flex items-center rounded-full border border-line bg-white/70 px-3 py-1 text-xs font-semibold text-ink-soft"
           >
             {t}
           </span>
@@ -216,13 +216,13 @@ export default function JobsExplorer({
                   key={s.name}
                   type="button"
                   onClick={() => setActiveCategory(s.name)}
-                  style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
-                  className="group flex flex-col items-start rounded-xl border border-line bg-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                  style={{ borderLeftColor: accent, borderLeftWidth: 4, backgroundColor: tint }}
+                  className="group flex flex-col items-start rounded-xl border border-line p-6 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <div className="flex w-full items-center justify-between">
                     <div
-                      className="flex h-11 w-11 items-center justify-center rounded-xl"
-                      style={{ backgroundColor: tint, color: accent }}
+                      className="flex h-11 w-11 items-center justify-center rounded-xl bg-white"
+                      style={{ color: accent }}
                     >
                       <Icon className="h-5 w-5" />
                     </div>
@@ -235,7 +235,7 @@ export default function JobsExplorer({
                     {s.topStd.map((std) => (
                       <span
                         key={std}
-                        className="inline-flex items-center rounded-full border border-line bg-surface-50 px-2.5 py-1 text-[11px] font-semibold text-ink-soft"
+                        className="inline-flex items-center rounded-full border border-line bg-white/70 px-2.5 py-1 text-[11px] font-semibold text-ink-soft"
                       >
                         {std}
                       </span>

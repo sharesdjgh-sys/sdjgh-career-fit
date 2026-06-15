@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
 import Markdown from "@/components/Markdown";
@@ -8,7 +9,6 @@ import { store } from "@/lib/storage";
 import { HOLLAND_INFO } from "@/lib/types";
 import type { ChatMessage, Recommendation, StudentProfile, HollandCode } from "@/lib/types";
 import {
-  Compass,
   Send,
   ChevronLeft,
   User,
@@ -282,8 +282,14 @@ function ChatInner() {
                 className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {m.role === "assistant" && (
-                  <div className="mr-3 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-600">
-                    <Compass className="h-4 w-4" strokeWidth={2} />
+                  <div className="mr-3 flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
+                    <Image
+                      src="/chatbot.png"
+                      alt="AI 상담사"
+                      width={1184}
+                      height={983}
+                      className="h-full w-full object-contain"
+                    />
                   </div>
                 )}
                 <div

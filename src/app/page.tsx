@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Camera, PenLine, Briefcase, GraduationCap, BookOpen, Compass, ChevronRight } from "lucide-react";
 
 const FEATURES = [
@@ -28,16 +29,6 @@ const STEPS = [
   ["직업 Top 10 추천", "나에게 맞는 직업 10개를 추천받아요"],
   ["로드맵 보고서", "인쇄 가능한 학습 로드맵 보고서를 받아요"],
 ] as const;
-
-/** 히어로 배지의 미니 나침반 아이콘 */
-function MiniCompass({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 28 28" fill="none" aria-hidden="true" className={className}>
-      <circle cx="14" cy="14" r="12" stroke="currentColor" strokeWidth="2" />
-      <polygon points="14,14 19.6,8.4 13.1,14.9 14.9,13.1" fill="currentColor" />
-    </svg>
-  );
-}
 
 /** 나침반 라인 드로잉 — 데스크톱 히어로 (시안 480px 원본) */
 function CompassIllustration() {
@@ -114,8 +105,14 @@ export default function Home() {
       {/* 히어로 */}
       <section className="mx-auto grid max-w-6xl items-center gap-10 px-6 pb-14 pt-11 lg:grid-cols-[1fr_520px] lg:gap-16 lg:pb-24 lg:pt-22">
         <div className="flex flex-col items-center gap-5 text-center lg:items-start lg:gap-7 lg:text-left">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary-200 bg-white px-4 py-2 text-[13px] font-semibold tracking-[0.02em] text-primary-900">
-            <MiniCompass className="h-3.5 w-3.5 text-primary-900" />
+          <span className="inline-flex items-center gap-2 text-[17px] font-semibold tracking-[0.02em] text-primary-900">
+            <Image
+              src="/chatbot.png"
+              alt=""
+              width={1184}
+              height={983}
+              className="h-9 w-9 object-contain"
+            />
             AI 기반 맞춤 진로 가이드
           </span>
           <h1 className="font-serif text-4xl font-bold leading-[1.32] tracking-[-0.015em] text-ink sm:text-5xl lg:text-6xl lg:leading-[1.28]">

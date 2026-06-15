@@ -19,7 +19,9 @@ export const metadata: Metadata = {
   applicationName: "진로나침반",
   appleWebApp: { capable: true, title: "진로나침반", statusBarStyle: "default" },
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "930x930" }],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
   openGraph: {
     type: "website",

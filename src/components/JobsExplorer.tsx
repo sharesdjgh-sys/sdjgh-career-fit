@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Search, ChevronRight, Compass, Layers, X } from "lucide-react";
-import { CATEGORY_ICONS } from "@/lib/categories";
+import { CATEGORY_ICONS, categoryColor } from "@/lib/categories";
 import type { CollegeTrack, HollandCode, IndicatorLevel } from "@/lib/types";
 
 export interface JobCard {
@@ -39,13 +39,15 @@ function groupByStd(cards: JobCard[]): [string, JobCard[]][] {
 
 function JobCardItem({ card, showCategory }: { card: JobCard; showCategory?: boolean }) {
   const Icon = CATEGORY_ICONS[card.categoryName] ?? Compass;
+  const { accent } = categoryColor(card.categoryName);
   return (
     <Link
       href={`/jobs/${card.id}`}
-      className="group flex h-full flex-col rounded-xl border border-line bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md"
+      style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+      className="group flex h-full flex-col rounded-xl border border-line bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
     >
       <div className="flex items-center gap-1.5 text-xs font-semibold text-ink-lighter">
-        <Icon className="h-3.5 w-3.5" />
+        <Icon className="h-3.5 w-3.5" style={{ color: accent }} />
         <span>{showCategory ? card.categoryName : card.stdCategory}</span>
       </div>
       <h3 className="mt-1.5 text-lg font-bold text-ink">{card.name}</h3>
@@ -208,18 +210,25 @@ export default function JobsExplorer({
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {summaries.map((s) => {
               const Icon = CATEGORY_ICONS[s.name] ?? Compass;
+              const { accent, tint } = categoryColor(s.name);
               return (
                 <button
                   key={s.name}
                   type="button"
                   onClick={() => setActiveCategory(s.name)}
-                  className="group flex flex-col items-start rounded-xl border border-line bg-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md"
+                  style={{ borderLeftColor: accent, borderLeftWidth: 4 }}
+                  className="group flex flex-col items-start rounded-xl border border-line bg-white p-6 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 >
                   <div className="flex w-full items-center justify-between">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-xl"
+                      style={{ backgroundColor: tint, color: accent }}
+                    >
                       <Icon className="h-5 w-5" />
                     </div>
-                    <span className="font-serif text-2xl font-bold text-ink">{s.count}</span>
+                    <span className="font-serif text-2xl font-bold" style={{ color: accent }}>
+                      {s.count}
+                    </span>
                   </div>
                   <h2 className="mt-4 text-lg font-bold text-ink">{s.name}</h2>
                   <div className="mt-3 flex flex-wrap gap-1.5">

@@ -78,8 +78,33 @@ export default function RootLayout({
           </div>
         </header>
         <main className="flex-1">{children}</main>
-        <footer className="print-hidden border-t border-line bg-surface py-7 text-center text-xs font-medium text-ink-lighter">
-          진로나침반 — 교육청 진로교육 지원 서비스 · 직업 정보 출처: 직업백과 · 개발4팀
+        <footer className="print-hidden border-t border-line bg-surface">
+          <div className="mx-auto max-w-6xl px-6 py-10 lg:py-12">
+            {/* 브랜드 + 소개 문구 */}
+            <div className="flex max-w-2xl flex-col gap-3">
+              <div className="flex items-center gap-2.5">
+                <Image src="/logo2.png" alt="" width={327} height={283} className="h-6 w-auto" />
+                <span className="font-serif text-[17px] font-bold tracking-[-0.01em] text-ink">
+                  진로나침반
+                </span>
+              </div>
+              <p className="font-serif text-lg leading-[1.6] text-ink sm:text-xl">
+                진로의 답은 밖이 아니라, <span className="text-primary-500">내</span> 안에 있습니다.
+              </p>
+              <p className="text-sm leading-[1.75] text-ink-soft">
+                흥미와 적성을 나침반 삼아, 스스로 길을 찾는 힘을 길러 드립니다.
+              </p>
+            </div>
+
+            {/* 운영 · 출처 · 저작권 */}
+            <div className="mt-8 flex flex-col gap-2.5 border-t border-line pt-6 text-xs leading-relaxed text-ink-lighter sm:flex-row sm:items-center sm:justify-between">
+              <p>
+                <span className="font-semibold text-ink-soft">서대전여자고등학교 진로상담실</span> 운영
+                · 재학생 누구나 자유롭게 이용할 수 있어요
+              </p>
+              <p>© 2026 진로나침반 · 직업 정보 출처: 커리어넷 직업백과</p>
+            </div>
+          </div>
         </footer>
       </body>
     </html>

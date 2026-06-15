@@ -3,10 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import "./globals.css";
 
-// 배포 도메인 (미정 시 Vercel 도메인 → localhost 순으로 폴백)
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+// 배포 도메인 (정식 주소 고정, 필요 시 NEXT_PUBLIC_SITE_URL로 덮어쓰기)
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sdjgh-career-fit.vercel.app";
 
 const title = "진로나침반 — 고등학생 맞춤형 AI 진로 상담";
 const description =
@@ -29,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "진로나침반",
     title,
     description,
-    images: [{ url: "/og.png", width: 1200, height: 630, alt: "진로나침반" }],
+    images: [{ url: "/og.png", width: 1385, height: 662, alt: "진로나침반" }],
   },
   twitter: {
     card: "summary_large_image",

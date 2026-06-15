@@ -7,7 +7,7 @@ import MatchBadge from "@/components/MatchBadge";
 import { getAllJobs, getJob, getJobContent } from "@/lib/jobs";
 import { HOLLAND_INFO } from "@/lib/types";
 import type { HollandCode } from "@/lib/types";
-import { CATEGORY_ICONS } from "@/lib/categories";
+import { CATEGORY_ICONS, categoryColor } from "@/lib/categories";
 import {
   Coins,
   TrendingUp,
@@ -121,15 +121,22 @@ export default async function JobDetailPage({
     job.salary != null ? `${job.salary.toLocaleString()}만원` : job.salaryLevel;
 
   const CategoryIcon = CATEGORY_ICONS[job.categoryName] || Laptop;
+  const { accent } = categoryColor(job.categoryName);
 
   return (
     <div className="bg-surface pb-32">
-      {/* 히어로 — 앱에서 유일하게 허용되는 그라디언트 */}
-      <section className="bg-gradient-to-tr from-primary-50 to-secondary-50 px-6 py-12 sm:py-16">
+      {/* 히어로 — 분야 색으로 은은하게 물든 그라디언트 (앱에서 유일하게 허용되는 그라디언트) */}
+      <section
+        className="px-6 py-12 sm:py-16"
+        style={{ backgroundImage: `linear-gradient(to top right, ${accent}1F, #FBF9F6)` }}
+      >
         <div className="mx-auto max-w-4xl">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1 text-xs font-bold text-ink-soft shadow-sm">
-              <CategoryIcon className="h-3.5 w-3.5 text-primary-600" />
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1 text-xs font-bold shadow-sm"
+              style={{ color: accent }}
+            >
+              <CategoryIcon className="h-3.5 w-3.5" />
               {job.categoryName}
             </span>
             <span className="inline-flex items-center rounded-full bg-white px-3.5 py-1 text-xs font-bold text-ink-soft shadow-sm">

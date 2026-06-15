@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { store } from "@/lib/storage";
 import { HOLLAND_INFO } from "@/lib/types";
 import type { IndicatorLevel, Recommendation, StudentProfile, HollandCode } from "@/lib/types";
-import { CATEGORY_ICONS } from "@/lib/categories";
+import { CATEGORY_ICONS, categoryColor } from "@/lib/categories";
 import {
   Compass,
   Camera,
@@ -198,15 +198,17 @@ export default function ResultsPage() {
         {visible.map((r, i) => {
           const CategoryIcon = CATEGORY_ICONS[r.categoryName] || Laptop;
           const matchHigh = r.matching >= 90;
+          const { accent, tint } = categoryColor(r.categoryName);
           return (
             <div
               key={r.jobId}
-              className="flex h-full flex-col rounded-xl border border-line bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md"
+              style={{ borderLeftColor: accent, borderLeftWidth: 4, backgroundColor: tint }}
+              className="flex h-full flex-col rounded-xl border border-line p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5 text-xs font-semibold text-ink-lighter">
-                    <CategoryIcon className="h-3.5 w-3.5" />
+                    <CategoryIcon className="h-3.5 w-3.5" style={{ color: accent }} />
                     <span>{r.categoryName}</span>
                   </div>
                   <h2 className="mt-1 flex items-center gap-1.5 text-lg font-bold text-ink">

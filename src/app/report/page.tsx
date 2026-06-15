@@ -85,15 +85,12 @@ export default function ReportPage() {
   );
 
   useEffect(() => {
-    const p = store.getProfile();
-    const r = store.getRecommendations();
+    setProfile(store.getProfile());
+    setRecs(store.getRecommendations());
     const cached = store.getReport();
-    setProfile(p);
-    setRecs(r);
     if (cached) setReport(cached);
     setLoaded(true);
-    if (!cached && p && r && r.length > 0) void generate(p, r);
-  }, [generate]);
+  }, []);
 
   if (!loaded) return null;
 
@@ -130,22 +127,38 @@ export default function ReportPage() {
     );
   }
 
-  if (error || !report) {
+  if (!report) {
     return (
       <div className="mx-auto max-w-md px-6 py-20 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-lg bg-error-bg text-error">
-          <AlertTriangle className="h-6 w-6" strokeWidth={2} />
+        <div
+          className={`mx-auto flex h-14 w-14 items-center justify-center rounded-lg ${
+            error ? "bg-error-bg text-error" : "bg-primary-100 text-primary-600"
+          }`}
+        >
+          {error ? (
+            <AlertTriangle className="h-6 w-6" strokeWidth={2} />
+          ) : (
+            <FileText className="h-6 w-6" strokeWidth={2} />
+          )}
         </div>
-        <h1 className="mt-5 text-lg font-bold text-ink">보고서 작성에 실패했습니다</h1>
-        <p className="mt-2 text-sm font-semibold text-error">{error}</p>
+        <h1 className="mt-5 text-lg font-bold text-ink">
+          {error ? "보고서 작성에 실패했습니다" : "AI 심층 진로 보고서를 만들어 볼까요?"}
+        </h1>
+        {error ? (
+          <p className="mt-2 text-sm font-semibold text-error">{error}</p>
+        ) : (
+          <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+            분석된 프로필과 추천 직업을 바탕으로 학년별 학습 로드맵까지 담은 맞춤 보고서를 생성합니다.
+          </p>
+        )}
         <div className="mt-8 flex justify-center">
           <button
             type="button"
             onClick={() => generate(profile, recs)}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-primary-500 px-6 py-3 text-sm font-bold text-white shadow-md shadow-primary-500/15 transition duration-200 hover:bg-primary-600 active:scale-[0.98]"
           >
-            <RefreshCw className="h-4 w-4" />
-            다시 요청하기
+            {error ? <RefreshCw className="h-4 w-4" /> : <FileText className="h-4 w-4" />}
+            {error ? "다시 시도하기" : "보고서 생성하기"}
           </button>
         </div>
       </div>

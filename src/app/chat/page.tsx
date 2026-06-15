@@ -73,7 +73,9 @@ function ChatInner() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [streaming, setStreaming] = useState(false);
-  const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const lastUserRef = useRef<HTMLDivElement>(null);
+  const prevLenRef = useRef(0);
 
   const currentJob = jobId ? recs.find((r) => r.jobId === jobId) : undefined;
 
@@ -95,8 +97,22 @@ function ChatInner() {
   }, []);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    // 메시지를 새로 보냈을 때만(길이 증가) 방금 보낸 질문이 영역 상단에 오도록 스크롤.
+    // 스트리밍 중에는 내용만 바뀌고 길이는 그대로라 자동 스크롤하지 않음 → 답변을 위에서부터 읽을 수 있음.
+    // scrollIntoView 대신 컨테이너 scrollTop을 직접 조정 → 페이지(window) 전체가 따라 내려가지 않음.
+    if (messages.length > prevLenRef.current) {
+      const el = lastUserRef.current;
+      const c = scrollAreaRef.current;
+      if (el && c) {
+        const top = el.getBoundingClientRect().top - c.getBoundingClientRect().top + c.scrollTop - 16;
+        c.scrollTo({ top, behavior: "smooth" });
+      }
+    }
+    prevLenRef.current = messages.length;
   }, [messages]);
+
+  // 가장 최근 사용자 메시지 인덱스 (스크롤 기준점)
+  const lastUserIndex = messages.reduce((acc, m, i) => (m.role === "user" ? i : acc), -1);
 
   const send = async (text: string) => {
     const question = text.trim();
@@ -274,12 +290,13 @@ function ChatInner() {
           </Link>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-6">
+        <div ref={scrollAreaRef} className="flex-1 overflow-y-auto p-6">
           <div className="mx-auto max-w-3xl space-y-4">
             {messages.map((m, i) => (
               <div
                 key={i}
-                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+                ref={i === lastUserIndex ? lastUserRef : undefined}
+                className={`flex scroll-mt-4 ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {m.role === "assistant" && (
                   <div className="mr-3 flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full">
@@ -318,7 +335,6 @@ function ChatInner() {
                 </div>
               </div>
             ))}
-            <div ref={bottomRef} />
           </div>
         </div>
 

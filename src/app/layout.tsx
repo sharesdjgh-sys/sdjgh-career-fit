@@ -1,24 +1,45 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import "./globals.css";
 
+// 배포 도메인 (미정 시 Vercel 도메인 → localhost 순으로 폴백)
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
+
+const title = "진로나침반 — 고등학생 맞춤형 AI 진로 상담";
+const description =
+  "커리어넷 진로심리검사 결과로 579개 직업 중 나에게 맞는 직업·전공·고교 선택과목을 추천받아 보세요.";
+
 export const metadata: Metadata = {
-  title: "진로나침반 — 고등학생 맞춤형 AI 진로 상담",
-  description:
-    "커리어넷 진로심리검사 결과로 579개 직업 중 나에게 맞는 직업·전공·고교 선택과목을 추천받아 보세요.",
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  applicationName: "진로나침반",
+  appleWebApp: { capable: true, title: "진로나침반", statusBarStyle: "default" },
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    siteName: "진로나침반",
+    title,
+    description,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "진로나침반" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og.png"],
+  },
 };
 
-/** v3 브랜드 로고 — 나침반 라인 드로잉 (로즈 N극 + 슬레이트 S극 바늘) */
-function CompassLogo({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 28 28" fill="none" aria-hidden="true" className={className}>
-      <circle cx="14" cy="14" r="12.5" stroke="#26222B" strokeWidth="1.4" />
-      <polygon points="14,14 19.6,8.4 13.1,14.9 14.9,13.1" fill="#D6456B" />
-      <polygon points="14,14 8.4,19.6 14.9,13.1 13.1,14.9" fill="#3D3A52" />
-      <circle cx="14" cy="14" r="1.6" fill="#FBF9F6" stroke="#26222B" strokeWidth="0.9" />
-    </svg>
-  );
-}
+export const viewport: Viewport = {
+  themeColor: "#D6456B",
+};
 
 export default function RootLayout({
   children,
@@ -31,7 +52,14 @@ export default function RootLayout({
         <header className="print-hidden sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur-sm">
           <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 lg:h-[72px]">
             <Link href="/" className="flex items-center gap-2.5 transition hover:opacity-80">
-              <CompassLogo className="h-6 w-6 lg:h-7 lg:w-7" />
+              <Image
+                src="/logo2.png"
+                alt="진로나침반 로고"
+                width={327}
+                height={283}
+                priority
+                className="h-7 w-auto lg:h-8"
+              />
               <span className="font-serif text-[17px] font-bold tracking-[-0.01em] text-ink lg:text-[19px]">
                 진로나침반
               </span>

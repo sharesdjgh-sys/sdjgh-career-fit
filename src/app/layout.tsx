@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "진로나침반",
     title,
     description,
-    images: [{ url: "/og.png", width: 1385, height: 662, alt: "진로나침반" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "진로나침반" }],
   },
   twitter: {
     card: "summary_large_image",

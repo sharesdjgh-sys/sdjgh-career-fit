@@ -7,6 +7,7 @@ import MatchBadge from "@/components/MatchBadge";
 import { getAllJobs, getJob, getJobContent } from "@/lib/jobs";
 import { HOLLAND_INFO } from "@/lib/types";
 import type { HollandCode } from "@/lib/types";
+import { CATEGORY_ICONS } from "@/lib/categories";
 import {
   Coins,
   TrendingUp,
@@ -25,13 +26,7 @@ import {
   Briefcase,
   ClipboardList,
   Laptop,
-  HeartPulse,
-  Users,
-  Utensils,
-  Dumbbell,
   Link as LinkIcon,
-  Settings,
-  Sprout,
   HelpCircle,
   ListChecks,
   Sparkles,
@@ -108,21 +103,6 @@ const HOLLAND_ICONS: Record<HollandCode, React.ComponentType<{ className?: strin
   S: HeartHandshake,
   E: Briefcase,
   C: ClipboardList,
-};
-
-// 카테고리명 아이콘 매핑
-const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  "IT·디지털기술": Laptop,
-  "의료·보건": HeartPulse,
-  "교육": BookOpen,
-  "예술·문화·미디어": Palette,
-  "경제·금융·법률": Coins,
-  "공학·제조·건설": Settings,
-  "환경·에너지·농업": Sprout,
-  "공공·사회·복지": Users,
-  "서비스·유통·음식": Utensils,
-  "연구·과학": Microscope,
-  "스포츠·레저": Dumbbell,
 };
 
 export default async function JobDetailPage({

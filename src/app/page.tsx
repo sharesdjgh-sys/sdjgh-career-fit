@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Camera, PenLine, Briefcase, GraduationCap, BookOpen } from "lucide-react";
+import { Camera, PenLine, Briefcase, GraduationCap, BookOpen, Compass, ChevronRight } from "lucide-react";
 
 const FEATURES = [
   {
@@ -151,6 +151,14 @@ export default function Home() {
           <p className="text-[13px] text-ink-lighter lg:text-sm">
             검사를 아직 안 받았어도 괜찮아요 — 5개의 질문이면 충분해요.
           </p>
+          <Link
+            href="/jobs"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary-500 transition duration-200 hover:text-primary-600"
+          >
+            <Compass className="h-4 w-4" strokeWidth={2} />
+            아니면 어떤 직업들이 있나 둘러보기
+            <ChevronRight className="h-4 w-4" />
+          </Link>
         </div>
 
         <div className="hidden justify-center lg:flex">
@@ -192,10 +200,16 @@ export default function Home() {
             <span className="font-serif text-[28px] font-bold leading-none text-white lg:text-[52px]">579</span>
             <span className="text-xs tracking-[0.04em] text-secondary-300 lg:text-[15px]">개 직업 데이터</span>
           </div>
-          <div className="flex flex-col items-center gap-1.5 border-r border-white/15 px-3 lg:gap-2 lg:px-6">
+          <Link
+            href="/jobs"
+            className="group flex flex-col items-center gap-1.5 border-r border-white/15 px-3 transition hover:opacity-100 lg:gap-2 lg:px-6"
+          >
             <span className="font-serif text-[28px] font-bold leading-none text-white lg:text-[52px]">11</span>
-            <span className="text-xs tracking-[0.04em] text-secondary-300 lg:text-[15px]">개 직업 분야</span>
-          </div>
+            <span className="inline-flex items-center gap-1 text-xs tracking-[0.04em] text-secondary-300 transition group-hover:text-white lg:text-[15px]">
+              개 직업 분야
+              <ChevronRight className="h-3.5 w-3.5" />
+            </span>
+          </Link>
           <div className="flex flex-col items-center gap-1.5 px-3 lg:gap-2 lg:px-6">
             <span className="font-serif text-[28px] font-bold leading-none text-primary-300 lg:text-[52px]">AI</span>
             <span className="text-xs tracking-[0.04em] text-secondary-300 lg:text-[15px]">맞춤 분석 보고서</span>

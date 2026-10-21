@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:campus-auth": "node --test tests/campus-auth-smoke.cjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",

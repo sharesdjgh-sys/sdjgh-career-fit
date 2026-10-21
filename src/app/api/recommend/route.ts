@@ -12,6 +12,7 @@ import { studentProfileSchema, rerankResultSchema } from "@/lib/schemas";
 import { getAnthropic, hasApiKey, MODEL, toApiError } from "@/lib/anthropic";
 import { RERANK_SCHEMA, RERANK_SYSTEM } from "@/lib/prompts";
 import type { Recommendation, RecommendResponse, StudentProfile } from "@/lib/types";
+import { hasCampusAccess } from "@/lib/campus-auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -22,6 +23,7 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  if (!(await hasCampusAccess(req))) return NextResponse.json({ ok: false, error: "스마트 캠퍼스 로그인이 필요합니다." }, { status: 401 });
   let body;
   try {
     body = bodySchema.parse(await req.json());

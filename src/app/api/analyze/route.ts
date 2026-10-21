@@ -4,6 +4,7 @@ import { getAnthropic, hasApiKey, MODEL, toApiError } from "@/lib/anthropic";
 import { ANALYZE_PHOTO_SYSTEM, ANALYZE_QUICK_SYSTEM, ANALYZE_SCHEMA } from "@/lib/prompts";
 import { analyzeResultSchema, studentProfileSchema } from "@/lib/schemas";
 import type { HollandCode, StudentProfile } from "@/lib/types";
+import { hasCampusAccess } from "@/lib/campus-auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -37,6 +38,7 @@ const quickBody = z.object({
 const bodySchema = z.discriminatedUnion("mode", [photoBody, quickBody]);
 
 export async function POST(req: NextRequest) {
+  if (!(await hasCampusAccess(req))) return NextResponse.json({ ok: false, error: "스마트 캠퍼스 로그인이 필요합니다." }, { status: 401 });
   let body;
   try {
     body = bodySchema.parse(await req.json());

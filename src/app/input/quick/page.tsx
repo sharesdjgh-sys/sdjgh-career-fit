@@ -1,4 +1,5 @@
 "use client";
+import { campusFetch } from "@/lib/campus-client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -115,7 +116,7 @@ export default function QuickInputPage() {
       // 자유 서술 AI 보정 (실패해도 결정적 프로필로 진행)
       let profile = base;
       try {
-        const res = await fetch("/api/analyze", {
+        const res = await campusFetch("/api/analyze", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ mode: "quick", profile: base }),
@@ -126,7 +127,7 @@ export default function QuickInputPage() {
         /* 보정 실패 무시 — 결정적 프로필로 진행 */
       }
 
-      const recRes = await fetch("/api/recommend", {
+      const recRes = await campusFetch("/api/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ profile }),

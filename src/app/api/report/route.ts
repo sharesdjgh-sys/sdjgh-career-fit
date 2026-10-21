@@ -5,6 +5,7 @@ import { getAnthropic, hasApiKey, MODEL, toApiError } from "@/lib/anthropic";
 import { REPORT_SCHEMA, REPORT_SYSTEM } from "@/lib/prompts";
 import { reportResultSchema, studentProfileSchema } from "@/lib/schemas";
 import type { CareerReport } from "@/lib/types";
+import { hasCampusAccess } from "@/lib/campus-auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 120;
@@ -26,6 +27,7 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  if (!(await hasCampusAccess(req))) return NextResponse.json({ ok: false, error: "스마트 캠퍼스 로그인이 필요합니다." }, { status: 401 });
   if (!hasApiKey()) {
     return NextResponse.json(
       { ok: false, error: "AI 보고서 기능을 사용할 수 없어요. 관리자에게 문의해주세요." },

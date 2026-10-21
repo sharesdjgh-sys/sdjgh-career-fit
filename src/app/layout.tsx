@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import CampusGate from "./CampusGate";
 import "./globals.css";
 
 // 배포 도메인 (정식 주소 고정, 필요 시 NEXT_PUBLIC_SITE_URL로 덮어쓰기)
@@ -48,7 +49,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-surface text-ink font-sans selection:bg-primary-100 selection:text-primary-900">
+      <body className="min-h-full flex flex-col bg-surface text-ink font-sans selection:bg-primary-100 selection:text-primary-900"><CampusGate>
         <header className="print-hidden sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur-sm">
           <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 lg:h-[72px]">
             <Link href="/" className="flex items-center gap-2.5 transition hover:opacity-80">
@@ -106,7 +107,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
-      </body>
+      </CampusGate></body>
     </html>
   );
 }

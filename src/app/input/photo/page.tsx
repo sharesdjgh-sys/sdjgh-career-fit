@@ -1,4 +1,5 @@
 "use client";
+import { campusFetch } from "@/lib/campus-client";
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -88,7 +89,7 @@ export default function PhotoInputPage() {
     setError(null);
     setFallback(false);
     try {
-      const res = await fetch("/api/analyze", {
+      const res = await campusFetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -111,7 +112,7 @@ export default function PhotoInputPage() {
         return;
       }
 
-      const recRes = await fetch("/api/recommend", {
+      const recRes = await campusFetch("/api/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ profile: data.profile }),

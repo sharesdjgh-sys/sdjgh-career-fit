@@ -1,4 +1,5 @@
 "use client";
+import { campusFetch } from "@/lib/campus-client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -124,7 +125,7 @@ function ChatInner() {
     setStreaming(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await campusFetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

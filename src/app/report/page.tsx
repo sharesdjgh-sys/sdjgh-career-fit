@@ -1,4 +1,5 @@
 "use client";
+import { campusFetch } from "@/lib/campus-client";
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -58,7 +59,7 @@ export default function ReportPage() {
       setLoading(true);
       setError(null);
       try {
-        const res = await fetch("/api/report", {
+        const res = await campusFetch("/api/report", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
